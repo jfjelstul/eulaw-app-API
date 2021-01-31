@@ -1,0 +1,611 @@
+
+DROP TABLE IF EXISTS cases;
+CREATE TABLE cases(
+  key_ID INT,
+  case_number TEXT,
+  procedure_numbers TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  procedure_types TEXT,
+  contradictory_aid INT,
+  existing_aid INT,
+  notified_aid INT,
+  unnotified_aid INT,
+  general_block_exemption INT,
+  specific_block_exemption INT,
+  notification_date DATE,
+  notification_year INT,
+  notification_month INT,
+  notification_day INT,
+  outcome_date DATE,
+  outcome_year INT,
+  outcome_month INT,
+  outcome_day INT,
+  decisions TEXT,
+  count_decisions INT,
+  outcome TEXT,
+  outcome_phase_1 TEXT,
+  outcome_phase_2 TEXT,
+  exempt INT,
+  preliminary_investigation INT,
+  formal_investigation INT,
+  no_objection INT,
+  not_aid INT,
+  positive INT,
+  negative INT,
+  conditional INT,
+  withdrawal INT,
+  referral INT,
+  recovery INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases.csv'
+INTO TABLE cases
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_TS;
+CREATE TABLE cases_TS(
+  key_ID INT,
+  year INT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-TS.csv'
+INTO TABLE cases_TS
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_TS_D;
+CREATE TABLE cases_TS_D(
+  key_ID INT,
+  year INT,
+  case_type_ID INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-TS-D.csv'
+INTO TABLE cases_TS_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_CSTS_MS;
+CREATE TABLE cases_CSTS_MS(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-CSTS-MS.csv'
+INTO TABLE cases_CSTS_MS
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_CSTS_MS_D;
+CREATE TABLE cases_CSTS_MS_D(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-CSTS-MS-D.csv'
+INTO TABLE cases_CSTS_MS_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_CSTS_DG;
+CREATE TABLE cases_CSTS_DG(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-CSTS-DG.csv'
+INTO TABLE cases_CSTS_DG
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_CSTS_DG_D;
+CREATE TABLE cases_CSTS_DG_D(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-CSTS-DG-D.csv'
+INTO TABLE cases_CSTS_DG_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_DDY;
+CREATE TABLE cases_DDY(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-DDY.csv'
+INTO TABLE cases_DDY
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_DDY_D;
+CREATE TABLE cases_DDY_D(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-DDY-D.csv'
+INTO TABLE cases_DDY_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_network;
+CREATE TABLE cases_network(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-network.csv'
+INTO TABLE cases_network
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_network_D;
+CREATE TABLE cases_network_D(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-cases-network-D.csv'
+INTO TABLE cases_network_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions;
+CREATE TABLE decisions(
+  key_ID INT,
+  case_number TEXT,
+  procedure_numbers TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  procedure_types TEXT,
+  contradictory_aid INT,
+  existing_aid INT,
+  notified_aid INT,
+  unnotified_aid INT,
+  general_block_exemption INT,
+  specific_block_exemption INT,
+  notification_date DATE,
+  notification_year INT,
+  notification_month INT,
+  notification_day INT,
+  outcome_date DATE,
+  outcome_year INT,
+  outcome_month INT,
+  outcome_day INT,
+  decision_number INT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  phase TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions.csv'
+INTO TABLE decisions
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_TS;
+CREATE TABLE decisions_TS(
+  key_ID INT,
+  year INT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-TS.csv'
+INTO TABLE decisions_TS
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_TS_D;
+CREATE TABLE decisions_TS_D(
+  key_ID INT,
+  year INT,
+  case_type_ID INT,
+  case_type TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-TS-D.csv'
+INTO TABLE decisions_TS_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_CSTS_MS;
+CREATE TABLE decisions_CSTS_MS(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-CSTS-MS.csv'
+INTO TABLE decisions_CSTS_MS
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_CSTS_MS_D;
+CREATE TABLE decisions_CSTS_MS_D(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-CSTS-MS-D.csv'
+INTO TABLE decisions_CSTS_MS_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_CSTS_DG;
+CREATE TABLE decisions_CSTS_DG(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-CSTS-DG.csv'
+INTO TABLE decisions_CSTS_DG
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_CSTS_MS_D;
+CREATE TABLE decisions_CSTS_MS_D(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-CSTS-DG-D.csv'
+INTO TABLE decisions_CSTS_DG_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_DDY;
+CREATE TABLE decisions_DDY(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-DDY.csv'
+INTO TABLE decisions_DDY
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_DDY_D;
+CREATE TABLE decisions_DDY_D(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-DDY-D.csv'
+INTO TABLE decisions_DDY_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_network;
+CREATE TABLE decisions_network(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-network.csv'
+INTO TABLE decisions_network
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_network_D;
+CREATE TABLE decisions_network_D(
+  key_ID INT,
+  year INT,
+  directorate_general_ID INT,
+  directorate_general TEXT,
+  directorate_general_code TEXT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_ID INT,
+  case_type TEXT,
+  decision_type_ID INT,
+  decision_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-decisions-network-D.csv'
+INTO TABLE decisions_network_D
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS awards;
+CREATE TABLE awards(
+  key_ID INT,
+  case_number TEXT,
+  reference_number TEXT,
+  notification_date DATE,
+  notification_year INT,
+  notification_month INT,
+  notification_day INT,
+  publication_date DATE,
+  publication_year INT,
+  publication_month INT,
+  publication_day INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  authority_name TEXT,
+  region TEXT,
+  beneficiary_name TEXT,
+  beneficiary_type_ID INT,
+  beneficiary_type TEXT,
+  NACE_sector_ID INT,
+  NACE_sector_code TEXT,
+  NACE_sector TEXT,
+  NACE_code TEXT,
+  NACE_description TEXT,
+  aid_instrument_ID INT,
+  aid_instrument TEXT,
+  raw_amount BIGINT,
+  currency TEXT,
+  `range` BIGINT,
+  range_min BIGINT,
+  range_max BIGINT,
+  exchange_rate FLOAT,
+  amount_euros BIGINT,
+  voluntary INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-awards.csv'
+INTO TABLE awards
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+
+DROP TABLE IF EXISTS awards_CSTS;
+CREATE TABLE awards_CSTS(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  count_awards INT,
+  total_amount_euros BIGINT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-awards-CSTS.csv'
+INTO TABLE awards_CSTS
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS awards_CSTS_B;
+CREATE TABLE awards_CSTS_B(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  beneficiary_type_ID INT,
+  beneficiary_type TEXT,
+  count_awards INT,
+  total_amount_euros BIGINT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-awards-CSTS-B.csv'
+INTO TABLE awards_CSTS_B
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS awards_CSTS_I;
+CREATE TABLE awards_CSTS_I(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  aid_instrument_ID INT,
+  aid_instrument TEXT,
+  count_awards INT,
+  total_amount_euros BIGINT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-awards-CSTS-I.csv'
+INTO TABLE awards_CSTS_I
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS awards_CSTS_S;
+CREATE TABLE awards_CSTS_S(
+  key_ID INT,
+  year INT,
+  member_state_ID INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  NACE_sector_ID INT,
+  NACE_sector TEXT,
+  NACE_sector_code TEXT,
+  count_awards INT,
+  total_amount_euros BIGINT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUSA-data/EUSA-awards-CSTS-S.csv'
+INTO TABLE awards_CSTS_S
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
