@@ -1,0 +1,6 @@
+
+.DS_Store
+.Rhistory
+/EUTR-module
+*config.js
+node_modules/
