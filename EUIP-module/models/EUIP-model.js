@@ -1,47 +1,34 @@
 
-// import that MariaDB collection
 const databaseConnection = require.main.require("./EUIP-module/connection/EUIP-database-connection.js");
 
-// import the download module
 const downloadResource = require.main.require("./utilities/download.js");
 
-// define a new constructor
 const model = {};
 
-// one method in this object per route
-// each method a query to the database
-// basis for each handler function
-
-// define a method that queries the database and filters the data
 model.cases = function(parameters, queryResult) {
 
-  // get filter values
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var memberState = parameters.query.memberState;
-  var directorateGeneral = parameters.query.directorateGeneral;
-  var caseNumber = parameters.query.caseNumber;
-  var caseType = parameters.query.caseType;
-  var directive = parameters.query.directive;
-  var directiveNumber = parameters.query.directiveNumber;
-  var celexNumber = parameters.query.celexNumber;
-  var complete = parameters.query.complete;
-  var stageLFN258 = parameters.query.LFN258;
-  var stageRO258 = parameters.query.RO258;
-  var stageRF258 = parameters.query.RF258;
-  var stageLFN260 = parameters.query.LFN260;
-  var stageRO260 = parameters.query.RO260;
-  var stageRF260 = parameters.query.RF260;
-  var download = parameters.query.download;
+  var { minYear, maxYear, memberState, directorateGeneral,
+    caseNumber, caseType, directive, directiveNumber, celexNumber, complete,
+    stageLFN258, stageRO258, stageRF258, stageLFN260, stageRO260, stageRF260,
+    limit, offset, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   table = "cases";
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("case_year >= ?");
     values.push(minYear);
@@ -107,7 +94,6 @@ model.cases = function(parameters, queryResult) {
     values.push(stageRF260);
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
     var conditions = " WHERE " + conditions.join(" AND ");
   } else {
@@ -115,13 +101,8 @@ model.cases = function(parameters, queryResult) {
     var values = null;
   }
 
-  // construct SQL query
-  var sql = "SELECT * FROM " + table + conditions;
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
-  // query the MariaDB database
-  // first parameter is the query string
-  // second parameter is an array of values to put in
-  // third parameter is a callback function with parameters for the error, result, and fields (optional)
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -136,27 +117,30 @@ model.cases = function(parameters, queryResult) {
   });
 };
 
-// define a method that queries the database and filters the data
 model.casesTS = function(parameters, queryResult) {
 
-  // get filter values
-  var byCaseType = parameters.query.byCaseType;
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var caseType = parameters.query.caseType;
-  var download = parameters.query.download;
+  var { byCaseType, minYear, maxYear, caseType, limit, offset, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   var table = "cases_TS"
   if (byCaseType === "1") {
     table = "cases_TS_D"
   }
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -172,7 +156,6 @@ model.casesTS = function(parameters, queryResult) {
     }
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
     var conditions = " WHERE " + conditions.join(" AND ");
   } else {
@@ -180,13 +163,8 @@ model.casesTS = function(parameters, queryResult) {
     var values = null;
   }
 
-  // construct SQL query
-  var sql = "SELECT * FROM " + table + conditions;
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
-  // query the MariaDB database
-  // first parameter is the query string
-  // second parameter is an array of values to put in
-  // third parameter is a callback function with parameters for the error, result, and fields (optional)
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -201,24 +179,26 @@ model.casesTS = function(parameters, queryResult) {
   });
 };
 
-// define a method that queries the database and filters the data
 model.casesCSTS = function(parameters, queryResult) {
 
-  // get filter values
-  var byCaseType = parameters.query.byCaseType;
-  var crossSection = parameters.query.crossSection;
-  var memberState = parameters.query.memberState;
-  var directorateGeneral = parameters.query.directorateGeneral;
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var caseType = parameters.query.caseType;
-  var download = parameters.query.download;
+  var { byCaseType, crossSection, memberState, directorateGeneral,
+    minYear, maxYear, caseType, limit, offset, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   var table = null
   if (byCaseType === "1") {
     if(crossSection === "MS") {
@@ -234,7 +214,6 @@ model.casesCSTS = function(parameters, queryResult) {
     }
   }
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -262,7 +241,6 @@ model.casesCSTS = function(parameters, queryResult) {
     }
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
     var conditions = " WHERE " + conditions.join(" AND ");
   } else {
@@ -270,10 +248,8 @@ model.casesCSTS = function(parameters, queryResult) {
     var values = null;
   }
 
-  // construct SQL query
-  var sql = "SELECT * FROM " + table + conditions;
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
-  // query database
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -288,24 +264,26 @@ model.casesCSTS = function(parameters, queryResult) {
   });
 };
 
-// define a method that queries the database and filters the data
 model.casesDDY = function(parameters, queryResult) {
 
-  // get filter values
-  var byCaseType = parameters.query.byCaseType;
-  var memberState = parameters.query.memberState;
-  var directorateGeneral = parameters.query.directorateGeneral;
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var caseType = parameters.query.caseType;
-  var network = parameters.query.network;
-  var download = parameters.query.download;
+  var { byCaseType,  memberState, directorateGeneral, minYear, maxYear,
+    caseType, network, limit, offset, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   var table = null
   if (byCaseType === "1") {
     if(network === "1") {
@@ -321,7 +299,6 @@ model.casesDDY = function(parameters, queryResult) {
     }
   }
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -345,7 +322,6 @@ model.casesDDY = function(parameters, queryResult) {
     values.push(directorateGeneral);
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
     var conditions = " WHERE " + conditions.join(" AND ");
   } else {
@@ -353,10 +329,8 @@ model.casesDDY = function(parameters, queryResult) {
     var values = null;
   }
 
-  // construct SQL query
-  var sql = "SELECT * FROM " + table + conditions;
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
-  // query database
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -371,30 +345,28 @@ model.casesDDY = function(parameters, queryResult) {
   });
 };
 
-// define a method that queries the database and filters the data
 model.decisions = function(parameters, queryResult) {
 
-  // get filter values
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var memberState = parameters.query.memberState;
-  var directorateGeneral = parameters.query.directorateGeneral;
-  var caseNumber = parameters.query.caseNumber;
-  var caseType = parameters.query.caseType;
-  var directive = parameters.query.directive;
-  var directiveNumber = parameters.query.directiveNumber;
-  var celexNumber = parameters.query.celexNumber;
-  var decisionStage = parameters.query.decisionStage;
-  var download = parameters.query.download;
+  var { minYear, maxYear, memberState, directorateGeneral, caseNumber, caseType,
+    directive, directiveNumber, celexNumber, decisionStage, limit, offset, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   table = "decisions";
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("decision_year >= ?");
     values.push(minYear);
@@ -436,7 +408,6 @@ model.decisions = function(parameters, queryResult) {
     values.push(stageLFN258);
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
     var conditions = " WHERE " + conditions.join(" AND ");
   } else {
@@ -444,13 +415,8 @@ model.decisions = function(parameters, queryResult) {
     var values = null;
   }
 
-  // construct SQL query
-  var sql = "SELECT * FROM " + table + conditions;
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
-  // query the MariaDB database
-  // first parameter is the query string
-  // second parameter is an array of values to put in
-  // third parameter is a callback function with parameters for the error, result, and fields (optional)
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -465,28 +431,30 @@ model.decisions = function(parameters, queryResult) {
   });
 };
 
-// define a method that queries the database and filters the data
 model.decisionsTS = function(parameters, queryResult) {
 
-  // get filter values
-  var byCaseType = parameters.query.byCaseType;
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var decisionStage = parameters.query.decisionStage;
-  var caseType = parameters.query.caseType;
-  var download = parameters.query.download;
+  var { byCaseType, minYear, maxYear, decisionStage, caseType, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   var table = "decisions_TS"
   if (byCaseType === "1") {
     table = "decisions_TS_D"
   }
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -506,21 +474,15 @@ model.decisionsTS = function(parameters, queryResult) {
     }
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
+    var conditions = " WHERE " + conditions.join(" AND ") + " LIMIT " + limit + " OFFSET " + offset;
   } else {
     var conditions = "";
     var values = null;
   }
 
-  // construct SQL query
   var sql = "SELECT * FROM " + table + conditions;
 
-  // query the MariaDB database
-  // first parameter is the query string
-  // second parameter is an array of values to put in
-  // third parameter is a callback function with parameters for the error, result, and fields (optional)
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -535,25 +497,26 @@ model.decisionsTS = function(parameters, queryResult) {
   });
 };
 
-// define a method that queries the database and filters the data
 model.decisionsCSTS = function(parameters, queryResult) {
 
-  // get filter values
-  var byCaseType = parameters.query.byCaseType;
-  var crossSection = parameters.query.crossSection;
-  var memberState = parameters.query.memberState;
-  var directorateGeneral = parameters.query.directorateGeneral;
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var decisionStage = parameters.query.decisionStage;
-  var caseType = parameters.query.caseType;
-  var download = parameters.query.download;
+  var { byCaseType, crossSection, memberState, directorateGeneral, minYear, maxYear,
+    decisionStage, caseType, limit, offset, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   var table = null
   if (byCaseType === "1") {
     if(crossSection === "MS") {
@@ -569,7 +532,6 @@ model.decisionsCSTS = function(parameters, queryResult) {
     }
   }
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -601,7 +563,6 @@ model.decisionsCSTS = function(parameters, queryResult) {
     }
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
     var conditions = " WHERE " + conditions.join(" AND ");
   } else {
@@ -609,10 +570,8 @@ model.decisionsCSTS = function(parameters, queryResult) {
     var values = null;
   }
 
-  // construct SQL query
-  var sql = "SELECT * FROM " + table + conditions;
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
-  // query database
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -627,25 +586,26 @@ model.decisionsCSTS = function(parameters, queryResult) {
   });
 };
 
-// define a method that queries the database and filters the data
 model.decisionsDDY = function(parameters, queryResult) {
 
-  // get filter values
-  var byCaseType = parameters.query.byCaseType;
-  var minYear = parameters.query.minYear;
-  var maxYear = parameters.query.maxYear;
-  var decisionStage = parameters.query.decisionStage;
-  var memberState = parameters.query.memberState;
-  var directorateGeneral = parameters.query.directorateGeneral;
-  var caseType = parameters.query.caseType;
-  var network = parameters.query.network;
-  var download = parameters.query.download;
+  var { byCaseType, minYear, maxYear, decisionStage, memberState, directorateGeneral,
+    caseType, network, limit, offset, download } = parameters.query;
 
-  // make empty arrays for conditions and values
   var conditions = [];
   var values = [];
 
-  // choose a table
+  if (typeof limit === "undefined") {
+    limit = 100;
+  }
+
+  if (typeof offset === "undefined") {
+    offset = 0;
+  }
+
+  if(limit > 100) {
+    limit = 100;
+  }
+
   var table = null
   if (byCaseType === "1") {
     if(network === "1") {
@@ -661,7 +621,6 @@ model.decisionsDDY = function(parameters, queryResult) {
     }
   }
 
-  // make an array of conditions and values
   if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -689,7 +648,6 @@ model.decisionsDDY = function(parameters, queryResult) {
     values.push(directorateGeneral);
   }
 
-  // construct the conditions for the SQL query
   if (conditions.length > 0) {
     var conditions = " WHERE " + conditions.join(" AND ");
   } else {
@@ -697,10 +655,8 @@ model.decisionsDDY = function(parameters, queryResult) {
     var values = null;
   }
 
-  // construct SQL query
-  var sql = "SELECT * FROM " + table + conditions;
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
-  // query database
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
