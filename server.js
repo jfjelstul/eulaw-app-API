@@ -39,7 +39,7 @@ v2.get('/', (req, res) => {
 
 // end points for member state years model
 // pass in 'app' as an input
-// require.main.require('./EUIP-module/routes/EUIP-routes.js')(v1);
+require.main.require('./EUIP-module/routes/EUIP-routes.js')(v1);
 // require.main.require('./EUTR-module/routes/EUTR-routes.js')(v1);
 require.main.require('./EUSA-module/routes/EUSA-routes.js')(v1);
 
