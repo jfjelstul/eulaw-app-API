@@ -16,15 +16,15 @@ model.cases = function(parameters, queryResult) {
   var values = [];
 
   if (typeof limit === "undefined") {
-    limit = 100;
+    limit = 1000;
   }
 
   if (typeof offset === "undefined") {
     offset = 0;
   }
 
-  if(limit > 100) {
-    limit = 100;
+  if(limit > 1000) {
+    limit = 1000;
   }
 
   table = "cases";
@@ -125,15 +125,15 @@ model.casesTS = function(parameters, queryResult) {
   var values = [];
 
   if (typeof limit === "undefined") {
-    limit = 100;
+    limit = 1000;
   }
 
   if (typeof offset === "undefined") {
     offset = 0;
   }
 
-  if(limit > 100) {
-    limit = 100;
+  if(limit > 1000) {
+    limit = 1000;
   }
 
   var table = "cases_TS"
@@ -188,15 +188,15 @@ model.casesCSTS = function(parameters, queryResult) {
   var values = [];
 
   if (typeof limit === "undefined") {
-    limit = 100;
+    limit = 1000;
   }
 
   if (typeof offset === "undefined") {
     offset = 0;
   }
 
-  if(limit > 100) {
-    limit = 100;
+  if(limit > 1000) {
+    limit = 1000;
   }
 
   var table = null
@@ -266,22 +266,22 @@ model.casesCSTS = function(parameters, queryResult) {
 
 model.casesDDY = function(parameters, queryResult) {
 
-  var { byCaseType,  memberState, directorateGeneral, minYear, maxYear,
+  var { byCaseType, memberState, directorateGeneral, minYear, maxYear,
     caseType, network, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
 
   if (typeof limit === "undefined") {
-    limit = 100;
+    limit = 1000;
   }
 
   if (typeof offset === "undefined") {
     offset = 0;
   }
 
-  if(limit > 100) {
-    limit = 100;
+  if(limit > 1000) {
+    limit = 1000;
   }
 
   var table = null
@@ -433,21 +433,22 @@ model.decisions = function(parameters, queryResult) {
 
 model.decisionsTS = function(parameters, queryResult) {
 
-  var { byCaseType, minYear, maxYear, decisionStage, caseType, download } = parameters.query;
+  var { byCaseType, minYear, maxYear, caseType, decisionStage,
+    limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
 
   if (typeof limit === "undefined") {
-    limit = 100;
+    limit = 1000;
   }
 
   if (typeof offset === "undefined") {
     offset = 0;
   }
 
-  if(limit > 100) {
-    limit = 100;
+  if(limit > 1000) {
+    limit = 1000;
   }
 
   var table = "decisions_TS"
@@ -500,21 +501,21 @@ model.decisionsTS = function(parameters, queryResult) {
 model.decisionsCSTS = function(parameters, queryResult) {
 
   var { byCaseType, crossSection, memberState, directorateGeneral, minYear, maxYear,
-    decisionStage, caseType, limit, offset, download } = parameters.query;
+    caseType, decisionStage, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
 
   if (typeof limit === "undefined") {
-    limit = 100;
+    limit = 1000;
   }
 
   if (typeof offset === "undefined") {
     offset = 0;
   }
 
-  if(limit > 100) {
-    limit = 100;
+  if(limit > 1000) {
+    limit = 1000;
   }
 
   var table = null
@@ -588,8 +589,8 @@ model.decisionsCSTS = function(parameters, queryResult) {
 
 model.decisionsDDY = function(parameters, queryResult) {
 
-  var { byCaseType, minYear, maxYear, decisionStage, memberState, directorateGeneral,
-    caseType, network, limit, offset, download } = parameters.query;
+  var { byCaseType, minYear, maxYear, memberState, directorateGeneral,
+    caseType, decisionStage, network, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
