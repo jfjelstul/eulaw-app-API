@@ -586,15 +586,15 @@ model.decisionsDDY = function(parameters, queryResult) {
     directorateGeneral, caseType, decisionType, network, limit, offset, download } = parameters.query;
 
   if (typeof limit === "undefined") {
-    limit = 100;
+    limit = 1000;
    }
 
   if (typeof offset === "undefined") {
     offset = 0;
   }
 
-  if(limit > 100) {
-    limit = 100;
+  if(limit > 1000) {
+    limit = 1000;
   }
 
   var conditions = [];

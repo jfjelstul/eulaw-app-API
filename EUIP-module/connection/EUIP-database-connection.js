@@ -6,7 +6,14 @@ const databaseConnection = mysql.createConnection({
   host: dbConfig.HOST,
   user: dbConfig.USER,
   password: dbConfig.PASSWORD,
-  database: dbConfig.DATABASE
+  database: dbConfig.DATABASE,
+  typeCast: function (field, next) {
+    if (field.type === "DATE") {
+      return field.string();
+    } else {
+      return next();
+    }
+  }
 });
 
 // open connection
