@@ -95,7 +95,7 @@ model.notifications = function(parameters, callback) {
   });
 };
 
-model.notifications_TS = function(parameters, callback) {
+model.notificationsTS = function(parameters, callback) {
 
   var { startYear, endYear, limit, offset, download } = parameters.query;
 
@@ -148,7 +148,7 @@ model.notifications_TS = function(parameters, callback) {
   });
 };
 
-model.notifications_CSTS = function(parameters, callback) {
+model.notificationsCSTS = function(parameters, callback) {
 
   var { startYear, endYear, notificationBy, limit, offset, download } = parameters.query;
 
@@ -271,7 +271,7 @@ model.comments = function(parameters, callback) {
   });
 };
 
-model.comments_TS = function(parameters, callback) {
+model.commentsTS = function(parameters, callback) {
 
   var { startYear, endYear, limit, offset, download } = parameters.query;
 
@@ -324,7 +324,7 @@ model.comments_TS = function(parameters, callback) {
   });
 };
 
-model.comments_CSTS = function(parameters, callback) {
+model.commentsCSTS = function(parameters, callback) {
 
   var { startYear, endYear, commentBy, limit, offset, download } = parameters.query;
 
@@ -381,7 +381,7 @@ model.comments_CSTS = function(parameters, callback) {
   });
 };
 
-model.comments_DDY = function(parameters, callback) {
+model.commentsDDY = function(parameters, callback) {
 
   var { startYear, endYear, commentBy, notificationBy, network, limit, offset, download } = parameters.query;
 
@@ -511,7 +511,7 @@ model.opinions = function(parameters, callback) {
   });
 };
 
-model.opinions_TS = function(parameters, callback) {
+model.opinionsTS = function(parameters, callback) {
 
   var { startYear, endYear, limit, offset, download } = parameters.query;
 
@@ -564,7 +564,7 @@ model.opinions_TS = function(parameters, callback) {
   });
 };
 
-model.opinions_CSTS = function(parameters, callback) {
+model.opinionsCSTS = function(parameters, callback) {
 
   var { startYear, endYear, opinionBy, limit, offset, download } = parameters.query;
 
@@ -621,7 +621,7 @@ model.opinions_CSTS = function(parameters, callback) {
   });
 };
 
-model.opinions_DDY = function(parameters, callback) {
+model.opinionsDDY = function(parameters, callback) {
 
   var { startYear, endYear, opinionBy, notificationBy, network, limit, offset, download } = parameters.query;
 
@@ -685,7 +685,7 @@ model.opinions_DDY = function(parameters, callback) {
   });
 };
 
-model.entity_codes = function(parameters, callback) {
+model.entityCodes = function(parameters, callback) {
   var { download } = parameters.query;
   var sql = "SELECT * FROM entity_codes";
   databaseConnection.query (sql, null, function(error, json) {

@@ -20,8 +20,8 @@ controller.notifications = function (req, res) {
   });
 };
 
-controller.notifications_TS = function (req, res) {
-  model.notifications_TS (req, function(type, data) {
+controller.notificationsTS = function (req, res) {
+  model.notificationsTS (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -37,8 +37,8 @@ controller.notifications_TS = function (req, res) {
   });
 };
 
-controller.notifications_CSTS = function (req, res) {
-  model.notifications_CSTS (req, function(type, data) {
+controller.notificationsCSTS = function (req, res) {
+  model.notificationsCSTS (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -71,8 +71,8 @@ controller.comments = function (req, res) {
   });
 };
 
-controller.comments_TS = function (req, res) {
-  model.comments_TS (req, function(type, data) {
+controller.commentsTS = function (req, res) {
+  model.commentsTS (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -88,8 +88,8 @@ controller.comments_TS = function (req, res) {
   });
 };
 
-controller.comments_CSTS = function (req, res) {
-  model.comments_CSTS (req, function(type, data) {
+controller.commentsCSTS = function (req, res) {
+  model.commentsCSTS (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -105,8 +105,8 @@ controller.comments_CSTS = function (req, res) {
   });
 };
 
-controller.comments_DDY = function (req, res) {
-  model.comments_DDY (req, function(type, data) {
+controller.commentsDDY = function (req, res) {
+  model.commentsDDY (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -139,8 +139,8 @@ controller.opinions = function (req, res) {
   });
 };
 
-controller.opinions_TS = function (req, res) {
-  model.opinions_TS (req, function(type, data) {
+controller.opinionsTS = function (req, res) {
+  model.opinionsTS (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -156,8 +156,8 @@ controller.opinions_TS = function (req, res) {
   });
 };
 
-controller.opinions_CSTS = function (req, res) {
-  model.opinions_CSTS (req, function(type, data) {
+controller.opinionsCSTS = function (req, res) {
+  model.opinionsCSTS (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -173,8 +173,8 @@ controller.opinions_CSTS = function (req, res) {
   });
 };
 
-controller.opinions_DDY = function (req, res) {
-  model.opinions_DDY (req, function(type, data) {
+controller.opinionsDDY = function (req, res) {
+  model.opinionsDDY (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
@@ -190,8 +190,8 @@ controller.opinions_DDY = function (req, res) {
   });
 };
 
-controller.entity_codes = function (req, res) {
-  model.entity_codes (req, function(type, data) {
+controller.entityCodes = function (req, res) {
+  model.entityCodes (req, function(type, data) {
     if(type == "csv") {
       res.setHeader("Content-disposition", "attachment; filename=data.csv");
       res.set("Content-Type", "text/csv");
