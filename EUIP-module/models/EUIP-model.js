@@ -184,7 +184,7 @@ model.casesTS = function(parameters, queryResult) {
 model.casesCSTS = function(parameters, queryResult) {
 
   var { crossSection } = parameters.params;
-  var { byCaseType, crossSection, memberState, directorateGeneral,
+  var { byCaseType, memberState, directorateGeneral,
     minYear, maxYear, caseType, limit, offset, download } = parameters.query;
 
   var conditions = [];
