@@ -754,22 +754,22 @@ model.awardsCSTS = function(parameters, queryResult) {
 
   if (typeof limit == "undefined") {
     limit = defaultLimit;
-   }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
   }
 
   if(limit > defaultLimit) {
     limit = defaultLimit;
   }
 
+  if (typeof offset == "undefined") {
+    offset = 0;
+  }
+
   var table =  null;
   if (crossSection == "aid-instrument") {
-    table = "awards_CSTS_B";
+    table = "awards_CSTS_I";
   }
   else if (crossSection == "beneficiary-type") {
-    table = "awards_CSTS_I";
+    table = "awards_CSTS_B";
   }
   else if (crossSection == "sector") {
     table = "awards_CSTS_S";
