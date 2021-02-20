@@ -1,3 +1,4 @@
+
 const model = require.main.require('./EUSA-module/models/EUSA-model.js');
 
 const controller = {};
