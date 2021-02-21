@@ -3,13 +3,15 @@ const controller = require.main.require("./EUSA-module/controllers/EUSA-controll
 
 module.exports = app => {
   app.get("/EUSA-database/cases", controller.cases);
-  app.get("/EUSA-database/cases/TS", controller.casesTS);
-  app.get("/EUSA-database/cases/CSTS/:crossSection", controller.casesCSTS);
-  app.get("/EUSA-database/cases/DDY", controller.casesDDY);
+  app.get("/EUSA-database/cases/TS", controller.cases_TS);
+  app.get("/EUSA-database/cases/CSTS/MS", controller.cases_CSTS_MS);
+  app.get("/EUSA-database/cases/CSTS/DG", controller.cases_CSTS_DG);
+  app.get("/EUSA-database/cases/DDY", controller.cases_DDY);
   app.get("/EUSA-database/decisions", controller.decisions);
-  app.get("/EUSA-database/decisions/TS", controller.decisionsTS);
-  app.get("/EUSA-database/decisions/CSTS/:crossSection", controller.decisionsCSTS);
-  app.get("/EUSA-database/decisions/DDY", controller.decisionsDDY);
+  app.get("/EUSA-database/decisions/TS", controller.decisions_TS);
+  app.get("/EUSA-database/decisions/CSTS/MS", controller.decisions_CSTS_MS);
+  app.get("/EUSA-database/decisions/CSTS/DG", controller.decisions_CSTS_DG);
+  app.get("/EUSA-database/decisions/DDY", controller.decisions_DDY);
   app.get("/EUSA-database/awards", controller.awards);
-  app.get("/EUSA-database/awards/CSTS/:crossSection", controller.awardsCSTS);
+  app.get("/EUSA-database/awards/CSTS", controller.awards_CSTS);
 };

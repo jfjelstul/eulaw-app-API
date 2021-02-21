@@ -124,7 +124,7 @@ model.cases = function(parameters, queryResult) {
   });
 };
 
-model.casesTS = function(parameters, queryResult) {
+model.cases_TS = function(parameters, queryResult) {
 
   var { byCaseType, minYear, maxYear, caseType, limit, offset, download } = parameters.query;
 
@@ -143,9 +143,9 @@ model.casesTS = function(parameters, queryResult) {
     offset = 0;
   }
 
-  var table = "cases_TS"
+  var table = "cases_TS";
   if (byCaseType == "1") {
-    table = "cases_TS_D"
+    table = "cases_TS_D";
   }
 
   if (typeof minYear != "undefined") {
@@ -186,11 +186,10 @@ model.casesTS = function(parameters, queryResult) {
   });
 };
 
-model.casesCSTS = function(parameters, queryResult) {
+model.cases_CSTS_MS = function(parameters, queryResult) {
 
-  var { crossSection } = parameters.params;
-  var { byCaseType, memberState, directorateGeneral,
-    minYear, maxYear, caseType, limit, offset, download } = parameters.query;
+  var { byCaseType, memberState, minYear, maxYear, caseType,
+    limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -207,21 +206,15 @@ model.casesCSTS = function(parameters, queryResult) {
     offset = 0;
   }
 
-  var table = null
+  var table = "cases_CSTS_MS";
   if (byCaseType == "1") {
-    if(crossSection == "member-state") {
-      table = "cases_CSTS_MS_D"
-    } else if (crossSection == "directorate-general") {
-      table = "cases_CSTS_DG_D"
-    }
-  } else {
-    if(crossSection == "member-state") {
-      table = "cases_CSTS_MS"
-    } else if (crossSection == "directorate-general") {
-      table = "cases_CSTS_DG"
-    }
+    table = "cases_CSTS_MS_D";
   }
 
+  if (typeof memberState != "undefined") {
+    conditions.push("member_state_ID = ?");
+    values.push(memberState);
+  }
   if (typeof minYear != "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -234,18 +227,6 @@ model.casesCSTS = function(parameters, queryResult) {
     if (typeof caseType != "undefined") {
       conditions.push("case_type_ID = ?");
       values.push(caseType);
-    }
-  }
-  if (crossSection == "member-state") {
-    if (typeof memberState != "undefined") {
-      conditions.push("member_state_ID = ?");
-      values.push(memberState);
-    }
-  }
-  if (crossSection == "directorate-general") {
-    if (typeof directorateGeneral != "undefined") {
-      conditions.push("directorate_general_ID = ?");
-      values.push(directorateGeneral);
     }
   }
 
@@ -272,7 +253,74 @@ model.casesCSTS = function(parameters, queryResult) {
   });
 };
 
-model.casesDDY = function(parameters, queryResult) {
+model.cases_CSTS_DG = function(parameters, queryResult) {
+
+  var { byCaseType, directorateGeneral, minYear, maxYear, caseType,
+    limit, offset, download } = parameters.query;
+
+  var conditions = [];
+  var values = [];
+
+  if (typeof limit == "undefined") {
+    limit = defaultLimit;
+  }
+
+  if(limit > defaultLimit) {
+    limit = defaultLimit;
+  }
+
+  if (typeof offset == "undefined") {
+    offset = 0;
+  }
+
+  var table = "cases_CSTS_DG";
+  if (byCaseType == "1") {
+    table = "cases_CSTS_DG_D";
+  }
+
+  if (typeof directorateGeneral != "undefined") {
+    conditions.push("directorate_general_ID = ?");
+    values.push(directorateGeneral);
+  }
+  if (typeof minYear != "undefined") {
+    conditions.push("year >= ?");
+    values.push(minYear);
+  }
+  if (typeof maxYear != "undefined") {
+    conditions.push("year <= ?");
+    values.push(maxYear);
+  }
+  if (byCaseType == "1") {
+    if (typeof caseType != "undefined") {
+      conditions.push("case_type_ID = ?");
+      values.push(caseType);
+    }
+  }
+
+  if (conditions.length > 0) {
+    var conditions = " WHERE " + conditions.join(" AND ");
+  } else {
+    var conditions = "";
+    var values = null;
+  }
+
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
+
+  databaseConnection.query (sql, values, function(err, json) {
+    if (err) {
+      queryResult("error", err);
+    } else {
+      if(download == "1") {
+        const csv = downloadResource(json);
+        queryResult("csv", csv);
+      } else {
+        queryResult("json", json);
+      }
+    }
+  });
+};
+
+model.cases_DDY = function(parameters, queryResult) {
 
   var { byCaseType, minYear, maxYear, memberState, directorateGeneral,
     caseType, network, limit, offset, download } = parameters.query;
@@ -427,7 +475,7 @@ model.decisions = function(parameters, queryResult) {
   });
 };
 
-model.decisionsTS = function(parameters, queryResult) {
+model.decisions_TS = function(parameters, queryResult) {
 
   var { byCaseType, minYear, maxYear, caseType, decisionType, limit, offset, download } = parameters.query;
 
@@ -493,12 +541,10 @@ model.decisionsTS = function(parameters, queryResult) {
   });
 };
 
+model.decisions_CSTS_MS = function(parameters, queryResult) {
 
-model.decisionsCSTS = function(parameters, queryResult) {
-
-  var { crossSection } = parameters.params;
-  var { byCaseType, memberState, directorateGeneral,
-    minYear, maxYear, decisionType, caseType, limit, offset, download } = parameters.query;
+  var { byCaseType, memberState, minYear, maxYear, decisionType, caseType,
+    limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -515,21 +561,15 @@ model.decisionsCSTS = function(parameters, queryResult) {
     offset = 0;
   }
 
-  var table = null
+  var table = "decisions_CSTS_MS";
   if (byCaseType == "1") {
-    if(crossSection == "member-state") {
-      table = "decisions_CSTS_MS_D"
-    } else if (crossSection == "directorate-general") {
-      table = "decisions_CSTS_DG_D"
-    }
-  } else {
-    if(crossSection == "member-state") {
-      table = "decisions_CSTS_MS"
-    } else if (crossSection == "directorate-general") {
-      table = "decisions_CSTS_DG"
-    }
+    table = "decisions_CSTS_MS_D"
   }
 
+  if (typeof memberState != "undefined") {
+    conditions.push("member_state_ID = ?");
+    values.push(memberState);
+  }
   if (typeof minYear != "undefined") {
     conditions.push("year >= ?");
     values.push(minYear);
@@ -546,18 +586,6 @@ model.decisionsCSTS = function(parameters, queryResult) {
     if (typeof caseType != "undefined") {
       conditions.push("case_type_ID = ?");
       values.push(caseType);
-    }
-  }
-  if (crossSection == "member-state") {
-    if (typeof memberState != "undefined") {
-      conditions.push("member_state_ID = ?");
-      values.push(memberState);
-    }
-  }
-  if (crossSection == "directorate-general") {
-    if (typeof directorateGeneral != "undefined") {
-      conditions.push("directorate_general_ID = ?");
-      values.push(directorateGeneral);
     }
   }
 
@@ -584,7 +612,78 @@ model.decisionsCSTS = function(parameters, queryResult) {
   });
 };
 
-model.decisionsDDY = function(parameters, queryResult) {
+model.decisions_CSTS_DG = function(parameters, queryResult) {
+
+  var { byCaseType, directorateGeneral, minYear, maxYear, decisionType, caseType,
+    limit, offset, download } = parameters.query;
+
+  var conditions = [];
+  var values = [];
+
+  if (typeof limit == "undefined") {
+    limit = defaultLimit;
+  }
+
+  if(limit > defaultLimit) {
+    limit = defaultLimit;
+  }
+
+  if (typeof offset == "undefined") {
+    offset = 0;
+  }
+
+  var table = "decisions_CSTS_DG";
+  if (byCaseType == "1") {
+    table = "decisions_CSTS_DG_D"
+  }
+
+  if (typeof directorateGeneral != "undefined") {
+    conditions.push("directorate_general_ID = ?");
+    values.push(directorateGeneral);
+  }
+  if (typeof minYear != "undefined") {
+    conditions.push("year >= ?");
+    values.push(minYear);
+  }
+  if (typeof maxYear != "undefined") {
+    conditions.push("year <= ?");
+    values.push(maxYear);
+  }
+  if (typeof decisionType != "undefined") {
+    conditions.push("decision_type_ID = ?");
+    values.push(decisionType);
+  }
+  if (byCaseType == "1") {
+    if (typeof caseType != "undefined") {
+      conditions.push("case_type_ID = ?");
+      values.push(caseType);
+    }
+  }
+
+  if (conditions.length > 0) {
+    var conditions = " WHERE " + conditions.join(" AND ");
+  } else {
+    var conditions = "";
+    var values = null;
+  }
+
+  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
+
+  databaseConnection.query (sql, values, function(err, json) {
+    if (err) {
+      queryResult("error", err);
+    } else {
+      if(download == "1") {
+        const csv = downloadResource(json);
+        queryResult("csv", csv);
+      } else {
+        queryResult("json", json);
+      }
+    }
+  });
+};
+
+model.decisions_DDY = function(parameters, queryResult) {
 
   var { byCaseType, minYear, maxYear, memberState,
     directorateGeneral, caseType, decisionType, network, limit, offset, download } = parameters.query;
@@ -746,8 +845,8 @@ model.awards = function(parameters, queryResult) {
 model.awardsCSTS = function(parameters, queryResult) {
 
   var { crossSection } = parameters.params;
-  var { minYear, maxYear, memberState, beneficiaryType, sector, aidInstrument,
-    limit, offset, download } = parameters.query;
+  var { minYear, maxYear, byInstrument, byBeneficiary, bySector, memberState,
+    beneficiaryType, sector, aidInstrument, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -764,14 +863,14 @@ model.awardsCSTS = function(parameters, queryResult) {
     offset = 0;
   }
 
-  var table =  null;
-  if (crossSection == "aid-instrument") {
+  var table =  "awards_CSTS";
+  if (byInstrument == "1") {
     table = "awards_CSTS_I";
   }
-  else if (crossSection == "beneficiary-type") {
+  else if (byInstrument == "1") {
     table = "awards_CSTS_B";
   }
-  else if (crossSection == "sector") {
+  else if (bySector == "1") {
     table = "awards_CSTS_S";
   }
 
