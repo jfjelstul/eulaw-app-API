@@ -842,10 +842,9 @@ model.awards = function(parameters, queryResult) {
   });
 };
 
-model.awardsCSTS = function(parameters, queryResult) {
+model.awards_CSTS = function(parameters, queryResult) {
 
-  var { crossSection } = parameters.params;
-  var { minYear, maxYear, byInstrument, byBeneficiary, bySector, memberState,
+  var { minYear, maxYear, byAidInstrument, byBeneficiaryType, bySector, memberState,
     beneficiaryType, sector, aidInstrument, limit, offset, download } = parameters.query;
 
   var conditions = [];
@@ -864,10 +863,10 @@ model.awardsCSTS = function(parameters, queryResult) {
   }
 
   var table =  "awards_CSTS";
-  if (byInstrument == "1") {
+  if (byAidInstrument == "1") {
     table = "awards_CSTS_I";
   }
-  else if (byInstrument == "1") {
+  else if (byBeneficiaryType == "1") {
     table = "awards_CSTS_B";
   }
   else if (bySector == "1") {
@@ -887,19 +886,19 @@ model.awardsCSTS = function(parameters, queryResult) {
     values.push(memberState);
   }
 
-  if (crossSection == "aid-instrument") {
+  if (byAidInstrument == "1") {
     if (typeof aidInstrument != "undefined") {
       conditions.push("aid_instrument_ID = ?");
       values.push(aidInstrument);
     }
   }
-  if (crossSection == "beneficiary-type") {
+  if (byBeneficiaryType == "1") {
     if (typeof beneficiaryType != "undefined") {
       conditions.push("beneficiary_type_ID = ?");
       values.push(beneficiaryType);
     }
   }
-  if (crossSection == "sector") {
+  if (bySector == "1") {
     if (typeof sector != "undefined") {
       conditions.push("NACE_sector_ID = ?");
       values.push(sector);
