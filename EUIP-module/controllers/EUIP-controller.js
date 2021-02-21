@@ -19,8 +19,8 @@ controller.cases = function (req, res) {
   });
 };
 
-controller.casesTS = function (req, res) {
-  model.casesTS (req, function(type, data) {
+controller.cases_TS = function (req, res) {
+  model.cases_TS (req, function(type, data) {
     if(type == 'csv') {
       res.setHeader('Content-disposition', 'attachment; filename=data.csv');
       res.set('Content-Type', 'text/csv');
@@ -36,8 +36,8 @@ controller.casesTS = function (req, res) {
   });
 };
 
-controller.casesCSTS = function (req, res) {
-  model.casesCSTS (req, function(type, data) {
+controller.cases_CSTS_MS = function (req, res) {
+  model.cases_CSTS_MS (req, function(type, data) {
     if(type == 'csv') {
       res.setHeader('Content-disposition', 'attachment; filename=data.csv');
       res.set('Content-Type', 'text/csv');
@@ -53,8 +53,25 @@ controller.casesCSTS = function (req, res) {
   });
 };
 
-controller.casesDDY = function (req, res) {
-  model.casesDDY (req, function(type, data) {
+controller.cases_CSTS_DG = function (req, res) {
+  model.cases_CSTS_DG (req, function(type, data) {
+    if(type == 'csv') {
+      res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+      res.set('Content-Type', 'text/csv');
+      res.attachment('data.csv');
+      res.status(200).send(data);
+    } else if (type == 'json') {
+      res.status(200).send(data);
+    } else if (type == 'error') {
+      res.status(500).send({
+        message: 'error retrieving data'
+      });
+    }
+  });
+};
+
+controller.cases_DDY = function (req, res) {
+  model.cases_DDY (req, function(type, data) {
     if(type == 'csv') {
       res.setHeader('Content-disposition', 'attachment; filename=data.csv');
       res.set('Content-Type', 'text/csv');
@@ -87,8 +104,8 @@ controller.decisions = function (req, res) {
   });
 };
 
-controller.decisionsTS = function (req, res) {
-  model.decisionsTS (req, function(type, data) {
+controller.decisions_TS = function (req, res) {
+  model.decisions_TS (req, function(type, data) {
     if(type == 'csv') {
       res.setHeader('Content-disposition', 'attachment; filename=data.csv');
       res.set('Content-Type', 'text/csv');
@@ -104,8 +121,8 @@ controller.decisionsTS = function (req, res) {
   });
 };
 
-controller.decisionsCSTS = function (req, res) {
-  model.decisionsCSTS (req, function(type, data) {
+controller.decisions_CSTS_MS = function (req, res) {
+  model.decisions_CSTS_MS (req, function(type, data) {
     if(type == 'csv') {
       res.setHeader('Content-disposition', 'attachment; filename=data.csv');
       res.set('Content-Type', 'text/csv');
@@ -121,8 +138,25 @@ controller.decisionsCSTS = function (req, res) {
   });
 };
 
-controller.decisionsDDY = function (req, res) {
-  model.decisionsDDY (req, function(type, data) {
+controller.decisions_CSTS_DG = function (req, res) {
+  model.decisions_CSTS_DG (req, function(type, data) {
+    if(type == 'csv') {
+      res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+      res.set('Content-Type', 'text/csv');
+      res.attachment('data.csv');
+      res.status(200).send(data);
+    } else if (type == 'json') {
+      res.status(200).send(data);
+    } else if (type == 'error') {
+      res.status(500).send({
+        message: 'error retrieving data'
+      });
+    }
+  });
+};
+
+controller.decisions_DDY = function (req, res) {
+  model.decisions_DDY (req, function(type, data) {
     if(type == 'csv') {
       res.setHeader('Content-disposition', 'attachment; filename=data.csv');
       res.set('Content-Type', 'text/csv');

@@ -2,11 +2,13 @@ const controller = require.main.require("./EUIP-module/controllers/EUIP-controll
 
 module.exports = app => {
   app.get("/EUIP-database/cases", controller.cases);
-  app.get("/EUIP-database/cases/TS", controller.casesTS);
-  app.get("/EUIP-database/cases/CSTS/:crossSection", controller.casesCSTS);
-  app.get("/EUIP-database/cases/DDY", controller.casesDDY);
+  app.get("/EUIP-database/cases/TS", controller.cases_TS);
+  app.get("/EUIP-database/cases/CSTS/MS", controller.cases_CSTS_MS);
+  app.get("/EUIP-database/cases/CSTS/DG", controller.cases_CSTS_DG);
+  app.get("/EUIP-database/cases/DDY", controller.cases_DDY);
   app.get("/EUIP-database/decisions", controller.decisions);
-  app.get("/EUIP-database/decisions/TS", controller.decisionsTS);
-  app.get("/EUIP-database/decisions/CSTS/:crossSection", controller.decisionsCSTS);
-  app.get("/EUIP-database/decisions/DDY", controller.decisionsDDY);
+  app.get("/EUIP-database/decisions/TS", controller.decisions_TS);
+  app.get("/EUIP-database/decisions/CSTS/MS", controller.decisions_CSTS_MS);
+  app.get("/EUIP-database/decisions/CSTS/DG", controller.decisions_CSTS_DG);
+  app.get("/EUIP-database/decisions/DDY", controller.decisions_DDY);
 };
