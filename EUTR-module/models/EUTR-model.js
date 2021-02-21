@@ -95,9 +95,9 @@ model.notifications = function(parameters, callback) {
   });
 };
 
-model.notificationsTS = function(parameters, callback) {
+model.notifications_TS = function(parameters, callback) {
 
-  var { startYear, endYear, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -116,13 +116,13 @@ model.notificationsTS = function(parameters, callback) {
 
   var table = "notifications_TS";
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
 
   if (conditions.length > 0) {
@@ -148,9 +148,9 @@ model.notificationsTS = function(parameters, callback) {
   });
 };
 
-model.notificationsCSTS = function(parameters, callback) {
+model.notifications_CSTS = function(parameters, callback) {
 
-  var { startYear, endYear, notificationBy, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, notificationBy, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -169,13 +169,13 @@ model.notificationsCSTS = function(parameters, callback) {
 
   var table = "notifications_CSTS";
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
   if (typeof notificationBy !== "undefined") {
     conditions.push("notification_by_ID <= ?");
@@ -271,9 +271,9 @@ model.comments = function(parameters, callback) {
   });
 };
 
-model.commentsTS = function(parameters, callback) {
+model.comments_TS = function(parameters, callback) {
 
-  var { startYear, endYear, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -292,13 +292,13 @@ model.commentsTS = function(parameters, callback) {
 
   var table = "comments_TS";
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
 
   if (conditions.length > 0) {
@@ -324,9 +324,9 @@ model.commentsTS = function(parameters, callback) {
   });
 };
 
-model.commentsCSTS = function(parameters, callback) {
+model.comments_CSTS = function(parameters, callback) {
 
-  var { startYear, endYear, commentBy, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, commentBy, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -345,13 +345,13 @@ model.commentsCSTS = function(parameters, callback) {
 
   var table = "comments_CSTS";
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
   if (typeof commentBy !== "undefined") {
     conditions.push("comment_by_ID = ?");
@@ -381,9 +381,9 @@ model.commentsCSTS = function(parameters, callback) {
   });
 };
 
-model.commentsDDY = function(parameters, callback) {
+model.comments_DDY = function(parameters, callback) {
 
-  var { startYear, endYear, commentBy, notificationBy, network, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, commentBy, notificationBy, network, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -405,13 +405,13 @@ model.commentsDDY = function(parameters, callback) {
     table = "comments_network";
   }
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
   if (typeof commentBy !== "undefined") {
     conditions.push("comment_by_ID = ?");
@@ -511,9 +511,9 @@ model.opinions = function(parameters, callback) {
   });
 };
 
-model.opinionsTS = function(parameters, callback) {
+model.opinions_TS = function(parameters, callback) {
 
-  var { startYear, endYear, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -532,13 +532,13 @@ model.opinionsTS = function(parameters, callback) {
 
   var table = "opinions_TS";
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
 
   if (conditions.length > 0) {
@@ -564,9 +564,9 @@ model.opinionsTS = function(parameters, callback) {
   });
 };
 
-model.opinionsCSTS = function(parameters, callback) {
+model.opinions_CSTS = function(parameters, callback) {
 
-  var { startYear, endYear, opinionBy, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, opinionBy, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -585,13 +585,13 @@ model.opinionsCSTS = function(parameters, callback) {
 
   var table = "opinions_CSTS";
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
   if (typeof opinionBy !== "undefined") {
     conditions.push("opinion_by_ID = ?");
@@ -621,9 +621,9 @@ model.opinionsCSTS = function(parameters, callback) {
   });
 };
 
-model.opinionsDDY = function(parameters, callback) {
+model.opinions_DDY = function(parameters, callback) {
 
-  var { startYear, endYear, opinionBy, notificationBy, network, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, opinionBy, notificationBy, network, limit, offset, download } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -645,13 +645,13 @@ model.opinionsDDY = function(parameters, callback) {
     table = "opinions_network";
   }
 
-  if (typeof startYear !== "undefined") {
+  if (typeof minYear !== "undefined") {
     conditions.push("year >= ?");
-    values.push(startYear);
+    values.push(minYear);
   }
-  if (typeof endYear !== "undefined") {
+  if (typeof maxYear !== "undefined") {
     conditions.push("year <= ?");
-    values.push(endYear);
+    values.push(maxYear);
   }
   if (typeof opinionBy !== "undefined") {
     conditions.push("opinion_by_ID = ?");
@@ -685,7 +685,7 @@ model.opinionsDDY = function(parameters, callback) {
   });
 };
 
-model.entityCodes = function(parameters, callback) {
+model.entity_codes = function(parameters, callback) {
   var { download } = parameters.query;
   var sql = "SELECT * FROM entity_codes";
   databaseConnection.query (sql, null, function(error, json) {
