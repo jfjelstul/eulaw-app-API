@@ -492,3 +492,42 @@ FIELDS TERMINATED BY ','
 ENCLOSED BY '\"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS codebook;
+CREATE TABLE codebook(
+  key_ID INT,
+  dataset_ID INT,
+  dataset TEXT,
+  variable_ID INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUIP-data/EUIP-codebook.csv'
+INTO TABLE codebook
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS API_codebook;
+CREATE TABLE API_codebook(
+  key_ID INT,
+  API_route_ID INT,
+  API_route TEXT,
+  API_parameter_ID INT,
+  API_parameter TEXT,
+  API_parameter_type TEXT,
+  dataset TEXT,
+  variable TEXT,
+  description TEXT,
+  fetch_values INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/data/EUIP-data/EUIP-API-codebook.csv'
+INTO TABLE API_codebook
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;

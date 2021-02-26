@@ -776,4 +776,78 @@ model.decisions_DDY = function(parameters, queryResult) {
   });
 };
 
+model.codebook = function(parameters, queryResult) {
+
+  var { dataset, download } = parameters.query;
+
+  var conditions = [];
+  var values = [];
+
+  var table = "codebook";
+
+  if (typeof dataset != "undefined") {
+    conditions.push("dataset = ?");
+    values.push(dataset);
+  }
+
+  if (conditions.length > 0) {
+    var conditions = " WHERE " + conditions.join(" AND ");
+  } else {
+    var conditions = "";
+    var values = null;
+  }
+
+  var sql = "SELECT * FROM " + table + conditions;
+
+  databaseConnection.query (sql, values, function(err, json) {
+    if (err) {
+      queryResult("error", err);
+    } else {
+      if(download == "1") {
+        const csv = downloadResource(json);
+        queryResult("csv", csv);
+      } else {
+        queryResult("json", json);
+      }
+    }
+  });
+};
+
+model.codebook_API = function(parameters, queryResult) {
+
+  var { route, download } = parameters.query;
+
+  var conditions = [];
+  var values = [];
+
+  var table = "API_codebook";
+
+  if (typeof route != "undefined") {
+    conditions.push("API_route = ?");
+    values.push(route);
+  }
+
+  if (conditions.length > 0) {
+    var conditions = " WHERE " + conditions.join(" AND ");
+  } else {
+    var conditions = "";
+    var values = null;
+  }
+
+  var sql = "SELECT * FROM " + table + conditions;
+
+  databaseConnection.query (sql, values, function(err, json) {
+    if (err) {
+      queryResult("error", err);
+    } else {
+      if(download == "1") {
+        const csv = downloadResource(json);
+        queryResult("csv", csv);
+      } else {
+        queryResult("json", json);
+      }
+    }
+  });
+};
+
 module.exports = model;

@@ -11,4 +11,6 @@ module.exports = app => {
   app.get("/EUIP-database/decisions/CSTS/MS", controller.decisions_CSTS_MS);
   app.get("/EUIP-database/decisions/CSTS/DG", controller.decisions_CSTS_DG);
   app.get("/EUIP-database/decisions/DDY", controller.decisions_DDY);
+  app.get("/EUIP-database/codebook", controller.codebook);
+  app.get("/EUIP-database/codebook/API", controller.codebook_API);
 };
