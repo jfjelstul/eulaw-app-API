@@ -5,14 +5,14 @@ const downloadResource = require.main.require("./utilities/download.js");
 
 const model = {};
 
-const defaultLimit = 1000;
+const defaultLimit = 5000;
 
 model.cases = function(parameters, queryResult) {
 
   var { minYear, maxYear, memberState, directorateGeneral,
     caseNumber, caseType, directive, directiveNumber, celexNumber, complete,
     stageLFN258, stageRO258, stageRF258, stageLFN260, stageRO260, stageRF260,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -105,6 +105,10 @@ model.cases = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -121,7 +125,7 @@ model.cases = function(parameters, queryResult) {
 
 model.cases_TS = function(parameters, queryResult) {
 
-  var { byCaseType, minYear, maxYear, caseType, limit, offset, download } = parameters.query;
+  var { byCaseType, minYear, maxYear, caseType, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -167,6 +171,10 @@ model.cases_TS = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -184,7 +192,7 @@ model.cases_TS = function(parameters, queryResult) {
 model.cases_CSTS_MS = function(parameters, queryResult) {
 
   var { byCaseType, memberState, minYear, maxYear, caseType,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -234,6 +242,10 @@ model.cases_CSTS_MS = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -251,7 +263,7 @@ model.cases_CSTS_MS = function(parameters, queryResult) {
 model.cases_CSTS_DG = function(parameters, queryResult) {
 
   var { byCaseType, directorateGeneral, minYear, maxYear, caseType,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -301,6 +313,10 @@ model.cases_CSTS_DG = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -318,7 +334,7 @@ model.cases_CSTS_DG = function(parameters, queryResult) {
 model.cases_DDY = function(parameters, queryResult) {
 
   var { byCaseType, memberState, directorateGeneral, minYear, maxYear,
-    caseType, network, limit, offset, download } = parameters.query;
+    caseType, network, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -382,6 +398,10 @@ model.cases_DDY = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -399,7 +419,7 @@ model.cases_DDY = function(parameters, queryResult) {
 model.decisions = function(parameters, queryResult) {
 
   var { minYear, maxYear, memberState, directorateGeneral, caseNumber, caseType,
-    directive, directiveNumber, celexNumber, decisionStage, limit, offset, download } = parameters.query;
+    directive, directiveNumber, celexNumber, decisionStage, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -468,6 +488,10 @@ model.decisions = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -485,7 +509,7 @@ model.decisions = function(parameters, queryResult) {
 model.decisions_TS = function(parameters, queryResult) {
 
   var { byCaseType, minYear, maxYear, caseType, decisionStage,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -535,6 +559,10 @@ model.decisions_TS = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -552,7 +580,7 @@ model.decisions_TS = function(parameters, queryResult) {
 model.decisions_CSTS_MS = function(parameters, queryResult) {
 
   var { byCaseType, memberState, minYear, maxYear, caseType, decisionStage,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -606,6 +634,10 @@ model.decisions_CSTS_MS = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -623,7 +655,7 @@ model.decisions_CSTS_MS = function(parameters, queryResult) {
 model.decisions_CSTS_DG = function(parameters, queryResult) {
 
   var { byCaseType, directorateGeneral, minYear, maxYear, caseType, decisionStage,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -677,6 +709,10 @@ model.decisions_CSTS_DG = function(parameters, queryResult) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
       queryResult("error", err);
@@ -694,7 +730,7 @@ model.decisions_CSTS_DG = function(parameters, queryResult) {
 model.decisions_DDY = function(parameters, queryResult) {
 
   var { byCaseType, minYear, maxYear, memberState, directorateGeneral,
-    caseType, decisionStage, network, limit, offset, download } = parameters.query;
+    caseType, decisionStage, network, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -761,6 +797,10 @@ model.decisions_DDY = function(parameters, queryResult) {
   }
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
+
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
