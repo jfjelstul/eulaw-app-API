@@ -12,7 +12,7 @@ model.notifications = function(parameters, callback) {
   var { notificationId, notificationBy, minStartDate, maxStartDate,
     minComments, maxComments, minOpinions, maxOpinions,
     commissionComment, commissionOpinion,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -81,6 +81,10 @@ model.notifications = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -97,7 +101,7 @@ model.notifications = function(parameters, callback) {
 
 model.notifications_TS = function(parameters, callback) {
 
-  var { minYear, maxYear, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -134,6 +138,10 @@ model.notifications_TS = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -150,7 +158,7 @@ model.notifications_TS = function(parameters, callback) {
 
 model.notifications_CSTS = function(parameters, callback) {
 
-  var { minYear, maxYear, notificationBy, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, notificationBy, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -191,6 +199,10 @@ model.notifications_CSTS = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -208,7 +220,7 @@ model.notifications_CSTS = function(parameters, callback) {
 model.comments = function(parameters, callback) {
 
   var { notificationId, minStartDate, maxStartDate, commentId, commentBy,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -257,6 +269,10 @@ model.comments = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -273,7 +289,7 @@ model.comments = function(parameters, callback) {
 
 model.comments_TS = function(parameters, callback) {
 
-  var { minYear, maxYear, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -310,6 +326,10 @@ model.comments_TS = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -326,7 +346,7 @@ model.comments_TS = function(parameters, callback) {
 
 model.comments_CSTS = function(parameters, callback) {
 
-  var { minYear, maxYear, commentBy, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, commentBy, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -367,6 +387,10 @@ model.comments_CSTS = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -383,7 +407,7 @@ model.comments_CSTS = function(parameters, callback) {
 
 model.comments_DDY = function(parameters, callback) {
 
-  var { minYear, maxYear, commentBy, notificationBy, network, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, commentBy, notificationBy, network, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -431,6 +455,10 @@ model.comments_DDY = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -448,7 +476,7 @@ model.comments_DDY = function(parameters, callback) {
 model.opinions = function(parameters, callback) {
 
   var { notificationId, minStartDate, maxStartDate, opinionId, opinionBy,
-    limit, offset, download } = parameters.query;
+    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -497,6 +525,10 @@ model.opinions = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -513,7 +545,7 @@ model.opinions = function(parameters, callback) {
 
 model.opinions_TS = function(parameters, callback) {
 
-  var { minYear, maxYear, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -550,6 +582,10 @@ model.opinions_TS = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -566,7 +602,7 @@ model.opinions_TS = function(parameters, callback) {
 
 model.opinions_CSTS = function(parameters, callback) {
 
-  var { minYear, maxYear, opinionBy, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, opinionBy, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -607,6 +643,10 @@ model.opinions_CSTS = function(parameters, callback) {
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
 
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
       callback("error", error);
@@ -623,7 +663,7 @@ model.opinions_CSTS = function(parameters, callback) {
 
 model.opinions_DDY = function(parameters, callback) {
 
-  var { minYear, maxYear, opinionBy, notificationBy, network, limit, offset, download } = parameters.query;
+  var { minYear, maxYear, opinionBy, notificationBy, network, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
   var values = [];
@@ -670,6 +710,10 @@ model.opinions_DDY = function(parameters, callback) {
   }
 
   var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
+
+  if (count === "1") {
+    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
 
   databaseConnection.query (sql, values, function(error, json) {
     if (error) {
