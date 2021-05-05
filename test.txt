@@ -1,0 +1,133 @@
+
+##################################################
+EUIP database
+##################################################
+
+#########################
+# cases
+#########################
+
+www.api.eulaw.app/EUIP-database/cases?limit=10
+
+www.api.eulaw.app/EUIP-database/cases/TS?limit=10
+
+www.api.eulaw.app/EUIP-database/cases/CSTS/MS?limit=10
+www.api.eulaw.app/EUIP-database/cases/CSTS/DG?limit=10
+www.api.eulaw.app/EUIP-database/cases/CSTS/MS?memberState=1&limit=10
+www.api.eulaw.app/EUIP-database/cases/CSTS/DG?directorateGeneral=1&limit=10
+
+www.api.eulaw.app/EUIP-database/cases/DDY?limit=10
+www.api.eulaw.app/EUIP-database/cases/DDY?limit=10&network=1
+
+#########################
+# decisions
+#########################
+
+www.api.eulaw.app/EUIP-database/decisions?limit=10
+
+www.api.eulaw.app/EUIP-database/decisions/TS?limit=10
+
+www.api.eulaw.app/EUIP-database/decisions/CSTS/MS?limit=10
+www.api.eulaw.app/EUIP-database/decisions/CSTS/DG?limit=10
+www.api.eulaw.app/EUIP-database/decisions/CSTS/MS?memberState=1&limit=10
+www.api.eulaw.app/EUIP-database/decisions/CSTS/DG?directorateGeneral=1&limit=10
+
+www.api.eulaw.app/EUIP-database/decisions/DDY?limit=10
+www.api.eulaw.app/EUIP-database/decisions/DDY?limit=10&network=1
+
+##################################################
+EUSA database
+##################################################
+
+#########################
+# cases
+#########################
+
+www.api.eulaw.app/EUSA-database/cases?limit=10
+
+www.api.eulaw.app/EUSA-database/cases/TS?limit=10
+
+www.api.eulaw.app/EUSA-database/cases/CSTS/MS?limit=10
+www.api.eulaw.app/EUSA-database/cases/CSTS/DG?limit=10
+www.api.eulaw.app/EUSA-database/cases/CSTS/MS?memberState=1&limit=10
+www.api.eulaw.app/EUSA-database/cases/CSTS/DG?directorateGeneral=1&limit=10
+
+www.api.eulaw.app/EUSA-database/cases/DDY?limit=10
+www.api.eulaw.app/EUSA-database/cases/DDY?limit=10&network=1
+
+#########################
+# decisions
+#########################
+
+www.api.eulaw.app/EUSA-database/decisions?limit=10
+
+www.api.eulaw.app/EUSA-database/decisions/TS?limit=10
+
+www.api.eulaw.app/EUSA-database/decisions/CSTS/MS?limit=10
+www.api.eulaw.app/EUSA-database/decisions/CSTS/DG?limit=10
+www.api.eulaw.app/EUSA-database/decisions/CSTS/MS?memberState=1&limit=10
+www.api.eulaw.app/EUSA-database/decisions/CSTS/DG?directorateGeneral=1&limit=10
+
+www.api.eulaw.app/EUSA-database/decisions/DDY?limit=10
+www.api.eulaw.app/EUSA-database/decisions/DDY?network=1&limit=10
+
+#########################
+# awards
+#########################
+
+www.api.eulaw.app/EUSA-database/awards?limit=10
+
+www.api.eulaw.app/EUSA-database/awards/CSTS?limit=10
+www.api.eulaw.app/EUSA-database/awards/CSTS?byAidInstrument=1&limit=10
+www.api.eulaw.app/EUSA-database/awards/CSTS?byBeneficiaryType=1&limit=10
+www.api.eulaw.app/EUSA-database/awards/CSTS?bySector=1&limit=10
+
+www.api.eulaw.app/EUSA-database/awards/CSTS?byAidInstrument=1&aidInstrument=1&limit=10
+www.api.eulaw.app/EUSA-database/awards/CSTS?byBeneficiaryType=1&beneficiaryType=1&limit=10
+www.api.eulaw.app/EUSA-database/awards/CSTS?bySector=1&sector=1&limit=10
+
+##################################################
+EUTR database
+##################################################
+
+#########################
+# notifications
+#########################
+
+www.api.eulaw.app/EUTR-database/notifications?limit=10
+
+www.api.eulaw.app/EUTR-database/notifications/TS?limit=10
+
+www.api.eulaw.app/EUTR-database/notifications/CSTS?limit=10
+
+#########################
+# comments
+#########################
+
+www.api.eulaw.app/EUTR-database/comments?limit=10
+
+www.api.eulaw.app/EUTR-database/comments/TS?limit=10
+
+www.api.eulaw.app/EUTR-database/comments/CSTS?limit=10
+
+www.api.eulaw.app/EUTR-database/comments/DDY?limit=10
+www.api.eulaw.app/EUTR-database/comments/DDY?network=1&limit=10
+
+#########################
+# opinions
+#########################
+
+www.api.eulaw.app/EUTR-database/comments?limit=10
+
+www.api.eulaw.app/EUTR-database/comments/TS?limit=10
+
+www.api.eulaw.app/EUTR-database/comments/CSTS?limit=10
+
+www.api.eulaw.app/EUTR-database/comments/DDY?limit=10
+www.api.eulaw.app/EUTR-database/comments/DDY?network=1&limit=10
+
+#########################
+# entity codes
+#########################
+
+www.api.eulaw.app/EUTR-database/entity-codes

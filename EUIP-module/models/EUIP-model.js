@@ -1,893 +1,406 @@
-
-const databaseConnection = require.main.require("./EUIP-module/connection/EUIP-database-connection.js");
-
-const downloadResource = require.main.require("./utilities/download.js");
+const connection = require.main.require("./EUIP-module/connection/EUIP-database-connection.js");
+const modelHandler = require.main.require("./utilities/model-handler.js");
 
 const model = {};
 
-const defaultLimit = 5000;
-
-model.cases = function(parameters, queryResult) {
+model.cases = (parameters, callback) => {
 
   var { minYear, maxYear, memberState, directorateGeneral,
     caseNumber, caseType, directive, directiveNumber, celexNumber, complete,
-    stageLFN258, stageRO258, stageRF258, stageLFN260, stageRO260, stageRF260,
-    limit, offset, download, count } = parameters.query;
-
-  var conditions = [];
-  var values = [];
-
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
-  }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
-  }
+    stageLFN258, stageRO258, stageRF258, stageLFN260, stageRO260, stageRF260 } = parameters.query;
 
   var table = "cases";
 
-  if (typeof minYear != "undefined") {
-    conditions.push("case_year >= ?");
-    values.push(minYear);
+  var conditions = [];
+
+  if (typeof minYear !== "undefined") {
+    conditions.push("case_year>=" + minYear);
   }
-  if (typeof maxYear != "undefined") {
-    conditions.push("case_year <= ?");
-    values.push(maxYear);
+  if (typeof maxYear !== "undefined") {
+    conditions.push("case_year<=" + maxYear);
   }
-  if (typeof memberState != "undefined") {
-    conditions.push("member_state_ID = ?");
-    values.push(memberState);
+  if (typeof memberState !== "undefined") {
+    conditions.push("member_state_ID=" + memberState);
   }
-  if (typeof directorateGeneral != "undefined") {
-    conditions.push("directorate_general_ID = ?");
-    values.push(directorateGeneral);
+  if (typeof directorateGeneral !== "undefined") {
+    conditions.push("directorate_general_ID=" + directorateGeneral);
   }
-  if (typeof caseNumber != "undefined") {
-    conditions.push("case_number = ?");
-    values.push(caseNumber);
+  if (typeof caseNumber !== "undefined") {
+    conditions.push("case_number=" + caseNumber);
   }
-  if (typeof caseType != "undefined") {
-    conditions.push("case_type_ID = ?");
-    values.push(caseType);
+  if (typeof caseType !== "undefined") {
+    conditions.push("case_type_ID=" + caseType);
   }
-  if (typeof directive != "undefined") {
-    conditions.push("directive = ?");
-    values.push(directive);
+  if (typeof directive !== "undefined") {
+    conditions.push("directive=" + directive);
   }
-  if (typeof directiveNumber != "undefined") {
-    conditions.push("directive_number = ?");
-    values.push(directiveNumber);
+  if (typeof directiveNumber !== "undefined") {
+    conditions.push("directive_number=" + directiveNumber);
   }
-  if (typeof celexNumber != "undefined") {
-    conditions.push("CELEX_number = ?");
-    values.push(celexNumber);
+  if (typeof celexNumber !== "undefined") {
+    conditions.push("CELEX_number=" + celexNumber);
   }
-  if (typeof complete != "undefined") {
-    conditions.push("complete = ?");
-    values.push(complete);
+  if (typeof complete !== "undefined") {
+    conditions.push("complete=" + complete);
   }
-  if (typeof stageLFN258 != "undefined") {
-    conditions.push("stage_LFN258 = ?");
-    values.push(stageLFN258);
+  if (typeof stageLFN258 !== "undefined") {
+    conditions.push("stage_LFN258=" + stageLFN258);
   }
-  if (typeof stageRO258 != "undefined") {
-    conditions.push("stage_RO258 = ?");
-    values.push(stageRO258);
+  if (typeof stageRO258 !== "undefined") {
+    conditions.push("stage_RO258=" + stageRO258);
   }
-  if (typeof stageRF258 != "undefined") {
-    conditions.push("stage_RF258 = ?");
-    values.push(stageRF258);
+  if (typeof stageRF258 !== "undefined") {
+    conditions.push("stage_RF258=" + stageRF258);
   }
-  if (typeof stageLFN260 != "undefined") {
-    conditions.push("stage_LFN260 = ?");
-    values.push(stageLFN260);
+  if (typeof stageLFN260 !== "undefined") {
+    conditions.push("stage_LFN260=" + stageLFN260);
   }
-  if (typeof stageRO260 != "undefined") {
-    conditions.push("stage_RO260 = ?");
-    values.push(stageRO260);
+  if (typeof stageRO260 !== "undefined") {
+    conditions.push("stage_RO260=" + stageRO260);
   }
-  if (typeof stageRF260 != "undefined") {
-    conditions.push("stage_RF260 = ?");
-    values.push(stageRF260);
+  if (typeof stageRF260 !== "undefined") {
+    conditions.push("stage_RF260=" + stageRF260);
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.cases_TS = function(parameters, queryResult) {
+model.cases_TS = function(parameters, callback) {
 
-  var { byCaseType, minYear, maxYear, caseType, limit, offset, download, count } = parameters.query;
+  var { byCaseType, minYear, maxYear, caseType } = parameters.query;
+
+  var table = "cases_TS";
+  if (byCaseType === "1") {
+    table = "cases_TS_D";
+  }
 
   var conditions = [];
-  var values = [];
 
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=" + minYear);
   }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=" + maxYear);
   }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
-
-  var table = "cases_TS"
-  if (byCaseType == "1") {
-    table = "cases_TS_D"
-  }
-
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
-  }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
-  }
-  if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
+  if (byCaseType === "1") {
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=" + caseType);
     }
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.cases_CSTS_MS = function(parameters, queryResult) {
+model.cases_CSTS_MS = function(parameters, callback) {
 
-  var { byCaseType, memberState, minYear, maxYear, caseType,
-    limit, offset, download, count } = parameters.query;
-
-  var conditions = [];
-  var values = [];
-
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
-  }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
-  }
+  var { byCaseType, memberState, minYear, maxYear, caseType } = parameters.query;
 
   var table = "cases_CSTS_MS";
-  if (byCaseType == "1") {
-    table = "cases_CSTS_MS_D"
+  if (byCaseType === "1") {
+    table = "cases_CSTS_MS_D";
   }
-
-  if (typeof memberState != "undefined") {
-    conditions.push("member_state_ID = ?");
-    values.push(memberState);
-  }
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
-  }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
-  }
-  if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
-    }
-  }
-
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
-};
-
-model.cases_CSTS_DG = function(parameters, queryResult) {
-
-  var { byCaseType, directorateGeneral, minYear, maxYear, caseType,
-    limit, offset, download, count } = parameters.query;
 
   var conditions = [];
-  var values = [];
 
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
+  if (typeof memberState !== "undefined") {
+    conditions.push("member_state_ID=" + memberState);
+  }
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=" + minYear);
+  }
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=" + maxYear);
+  }
+  if (byCaseType === "1") {
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=" + caseTyle);
+    }
   }
 
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
+  modelHandler(table, conditions, parameters, connection, callback);
+};
 
-  if (typeof offset == "undefined") {
-    offset = 0;
-  }
+model.cases_CSTS_DG = function(parameters, callback) {
+
+  var { byCaseType, directorateGeneral, minYear, maxYear, caseType } = parameters.query;
 
   var table = "cases_CSTS_DG";
-  if (byCaseType == "1") {
-    table = "cases_CSTS_DG_D"
+  if (byCaseType === "1") {
+    table = "cases_CSTS_DG_D";
   }
-
-  if (typeof directorateGeneral != "undefined") {
-    conditions.push("directorate_general_ID = ?");
-    values.push(directorateGeneral);
-  }
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
-  }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
-  }
-  if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
-    }
-  }
-
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
-};
-
-model.cases_DDY = function(parameters, queryResult) {
-
-  var { byCaseType, memberState, directorateGeneral, minYear, maxYear,
-    caseType, network, limit, offset, download, count } = parameters.query;
 
   var conditions = [];
-  var values = [];
 
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
+  if (typeof directorateGeneral !== "undefined") {
+    conditions.push("directorate_general_ID=" + directorateGeneral);
   }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=" + minYear);
   }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=" + maxYear);
   }
-
-  var table = null
-  if (byCaseType == "1") {
-    if(network == "1") {
-      table = "cases_network_D"
-    } else {
-      table = "cases_DDY_D"
-    }
-  } else {
-    if(network == "1") {
-      table = "cases_network"
-    } else {
-      table = "cases_DDY"
+  if (byCaseType === "1") {
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=" + caseType);
     }
   }
 
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
-  }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
-  }
-  if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
-    }
-  }
-  if (typeof memberState != "undefined") {
-    conditions.push("member_state_ID = ?");
-    values.push(memberState);
-  }
-  if (typeof directorateGeneral != "undefined") {
-    conditions.push("directorate_general_ID = ?");
-    values.push(directorateGeneral);
-  }
-
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.decisions = function(parameters, queryResult) {
+model.cases_DDY = function(parameters, callback) {
+
+  var { byCaseType, memberState, directorateGeneral, minYear, maxYear, caseType, network } = parameters.query;
+
+  var table = null;
+  if (byCaseType === "1") {
+    if(network === "1") {
+      table = "cases_network_D";
+    } else {
+      table = "cases_DDY_D";
+    }
+  } else {
+    if(network === "1") {
+      table = "cases_network";
+    } else {
+      table = "cases_DDY";
+    }
+  }
+
+  var conditions = [];
+
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=" + minYear);
+  }
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=" + maxYear);
+  }
+  if (typeof memberState !== "undefined") {
+    conditions.push("member_state_ID=" + memberState);
+  }
+  if (typeof directorateGeneral !== "undefined") {
+    conditions.push("directorate_general_ID=" + directorateGeneral);
+  }
+  if (byCaseType === "1") {
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=" + byCaseType);
+    }
+  }
+
+  modelHandler(table, conditions, parameters, connection, callback);
+};
+
+model.decisions = function(parameters, callback) {
 
   var { minYear, maxYear, memberState, directorateGeneral, caseNumber, caseType,
-    directive, directiveNumber, celexNumber, decisionStage, limit, offset, download, count } = parameters.query;
-
-  var conditions = [];
-  var values = [];
-
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
-  }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
-  }
+    directive, directiveNumber, celexNumber, decisionStage } = parameters.query;
 
   var table = "decisions";
 
-  if (typeof minYear != "undefined") {
-    conditions.push("decision_year >= ?");
-    values.push(minYear);
+  var conditions = [];
+
+  if (typeof minYear !== "undefined") {
+    conditions.push("decision_year>=" + minYear);
   }
-  if (typeof maxYear != "undefined") {
-    conditions.push("decision_year <= ?");
-    values.push(maxYear);
+  if (typeof maxYear !== "undefined") {
+    conditions.push("decision_year<=" + maxYear);
   }
-  if (typeof memberState != "undefined") {
-    conditions.push("member_state_ID = ?");
-    values.push(memberState);
+  if (typeof memberState !== "undefined") {
+    conditions.push("member_state_ID=" + memberState);
   }
-  if (typeof directorateGeneral != "undefined") {
-    conditions.push("directorate_general_ID = ?");
-    values.push(directorateGeneral);
+  if (typeof directorateGeneral !== "undefined") {
+    conditions.push("directorate_general_ID=" + directorateGeneral);
   }
-  if (typeof caseNumber != "undefined") {
-    conditions.push("case_number = ?");
-    values.push(caseNumber);
+  if (typeof caseNumber !== "undefined") {
+    conditions.push("case_number=" + caseNumber);
   }
-  if (typeof caseType != "undefined") {
-    conditions.push("case_type_ID = ?");
-    values.push(caseType);
+  if (typeof caseType !== "undefined") {
+    conditions.push("case_type_ID=" + caseType);
   }
-  if (typeof directive != "undefined") {
-    conditions.push("directive = ?");
-    values.push(directive);
+  if (typeof directive !== "undefined") {
+    conditions.push("directive=" + directive);
   }
-  if (typeof directiveNumber != "undefined") {
-    conditions.push("directive_number = ?");
-    values.push(directiveNumber);
+  if (typeof directiveNumber !== "undefined") {
+    conditions.push("directive_number=" + directiveNumber);
   }
-  if (typeof decisionStage != "undefined") {
-    conditions.push("decision_stage_ID = ?");
-    values.push(decisionStage);
+  if (typeof decisionStage !== "undefined") {
+    conditions.push("decision_stage_ID=" + decisionStage);
   }
-  if (typeof stageLFN258 != "undefined") {
-    conditions.push("stage_LFN258 = ?");
-    values.push(stageLFN258);
+  if (typeof stageLFN258 !== "undefined") {
+    conditions.push("stage_LFN258=" + stageLFN258);
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.decisions_TS = function(parameters, queryResult) {
+model.decisions_TS = function(parameters, callback) {
 
-  var { byCaseType, minYear, maxYear, caseType, decisionStage,
-    limit, offset, download, count } = parameters.query;
-
-  var conditions = [];
-  var values = [];
-
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
-  }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
-  }
+  var { byCaseType, minYear, maxYear, caseType, decisionStage } = parameters.query;
 
   var table = "decisions_TS"
-  if (byCaseType == "1") {
+  if (byCaseType === "1") {
     table = "decisions_TS_D"
   }
 
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
+  var conditions = [];
+
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=");
   }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=");
   }
-  if (typeof decisionStage != "undefined") {
-    conditions.push("decision_stage_ID = ?");
-    values.push(decisionStage);
+  if (typeof decisionStage !== "undefined") {
+    conditions.push("decision_stage_ID=");
   }
   if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=");
     }
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.decisions_CSTS_MS = function(parameters, queryResult) {
+model.decisions_CSTS_MS = function(parameters, callback) {
 
-  var { byCaseType, memberState, minYear, maxYear, caseType, decisionStage,
-    limit, offset, download, count } = parameters.query;
-
-  var conditions = [];
-  var values = [];
-
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
-  }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
-  }
+  var { byCaseType, memberState, minYear, maxYear, caseType, decisionStage } = parameters.query;
 
   var table = "decisions_CSTS_MS";
-  if (byCaseType == "1") {
+  if (byCaseType === "1") {
     table = "decisions_CSTS_MS_D";
   }
 
-  if (typeof memberState != "undefined") {
-    conditions.push("member_state_ID = ?");
-    values.push(memberState);
+  var conditions = [];
+
+  if (typeof memberState !== "undefined") {
+    conditions.push("member_state_ID=" + memberState);
   }
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=" + minYear);
   }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=" + maxYear);
   }
-  if (typeof decisionStage != "undefined") {
-    conditions.push("decision_stage_ID = ?");
-    values.push(decisionStage);
+  if (typeof decisionStage !== "undefined") {
+    conditions.push("decision_stage_ID=" + decisionStage);
   }
-  if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
+  if (byCaseType === "1") {
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=" + byCaseType);
     }
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.decisions_CSTS_DG = function(parameters, queryResult) {
+model.decisions_CSTS_DG = function(parameters, callback) {
 
-  var { byCaseType, directorateGeneral, minYear, maxYear, caseType, decisionStage,
-    limit, offset, download, count } = parameters.query;
+  var { byCaseType, directorateGeneral, minYear, maxYear, caseType, decisionStage } = parameters.query;
 
   var conditions = [];
-  var values = [];
-
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
-  }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
-  }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
-  }
 
   var table = "decisions_CSTS_DG";
   if (byCaseType == "1") {
     table = "decisions_CSTS_DG_D";
   }
 
-  if (typeof directorateGeneral != "undefined") {
-    conditions.push("directorate_general_ID = ?");
-    values.push(directorateGeneral);
+  if (typeof directorateGeneral !== "undefined") {
+    conditions.push("directorate_general_ID=" + directorateGeneral);
   }
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=" + minYear);
   }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=" + maxYear);
   }
-  if (typeof decisionStage != "undefined") {
-    conditions.push("decision_stage_ID = ?");
-    values.push(decisionStage);
+  if (typeof decisionStage !== "undefined") {
+    conditions.push("decision_stage_ID=" + decisionStage);
   }
-  if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
+  if (byCaseType === "1") {
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=" + byCaseType);
     }
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.decisions_DDY = function(parameters, queryResult) {
+model.decisions_DDY = function(parameters, callback) {
 
   var { byCaseType, minYear, maxYear, memberState, directorateGeneral,
-    caseType, decisionStage, network, limit, offset, download, count } = parameters.query;
+    caseType, decisionStage, network } = parameters.query;
+
+  var table = null;
+  if (byCaseType == "1") {
+    if(network == "1") {
+      table = "decisions_network_D";
+    } else {
+      table = "decisions_DDY_D";
+    }
+  } else {
+    if(network == "1") {
+      table = "decisions_network";
+    } else {
+      table = "decisions_DDY";
+    }
+  }
 
   var conditions = [];
-  var values = [];
 
-  if (typeof limit == "undefined") {
-    limit = defaultLimit;
+  if (typeof minYear !== "undefined") {
+    conditions.push("year>=" + minYear);
   }
-
-  if(limit > defaultLimit) {
-    limit = defaultLimit;
+  if (typeof maxYear !== "undefined") {
+    conditions.push("year<=" + maxYear);
   }
-
-  if (typeof offset == "undefined") {
-    offset = 0;
+  if (typeof decisionStage !== "undefined") {
+    conditions.push("decision_stage_ID=" + decisionStage);
   }
-
-  var table = null
-  if (byCaseType == "1") {
-    if(network == "1") {
-      table = "decisions_network_D"
-    } else {
-      table = "decisions_DDY_D"
-    }
-  } else {
-    if(network == "1") {
-      table = "decisions_network"
-    } else {
-      table = "decisions_DDY"
-    }
+  if (typeof memberState !== "undefined") {
+    conditions.push("member_state_ID=" + memberState);
   }
-
-  if (typeof minYear != "undefined") {
-    conditions.push("year >= ?");
-    values.push(minYear);
-  }
-  if (typeof maxYear != "undefined") {
-    conditions.push("year <= ?");
-    values.push(maxYear);
-  }
-  if (typeof decisionStage != "undefined") {
-    conditions.push("decision_stage_ID = ?");
-    values.push(decisionStage);
+  if (typeof directorateGeneral !== "undefined") {
+    conditions.push("directorate_general_ID=" + directorateGeneral);
   }
   if (byCaseType == "1") {
-    if (typeof caseType != "undefined") {
-      conditions.push("case_type_ID = ?");
-      values.push(caseType);
+    if (typeof caseType !== "undefined") {
+      conditions.push("case_type_ID=" + caseType);
     }
   }
-  if (typeof memberState != "undefined") {
-    conditions.push("member_state_ID = ?");
-    values.push(memberState);
-  }
-  if (typeof directorateGeneral != "undefined") {
-    conditions.push("directorate_general_ID = ?");
-    values.push(directorateGeneral);
-  }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions + " LIMIT " + limit + " OFFSET " + offset;
-
-  if (count === "1") {
-    sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
-  }
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.codebook = function(parameters, queryResult) {
+model.codebook = function(parameters, callback) {
 
-  var { dataset, download } = parameters.query;
-
-  var conditions = [];
-  var values = [];
+  var { dataset } = parameters.query;
 
   var table = "codebook";
 
-  if (typeof dataset != "undefined") {
-    conditions.push("dataset = ?");
-    values.push(dataset);
+  var conditions = [];
+
+  if (typeof dataset !== "undefined") {
+    conditions.push("dataset=" + dataset);
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions;
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
-model.codebook_API = function(parameters, queryResult) {
+model.codebook_API = function(parameters, callback) {
 
   var { route, download } = parameters.query;
 
-  var conditions = [];
-  var values = [];
-
   var table = "API_codebook";
 
-  if (typeof route != "undefined") {
-    conditions.push("API_route = ?");
-    values.push(route);
+  var conditions = [];
+
+  if (typeof route !== "undefined") {
+    conditions.push("API_route=" + route);
   }
 
-  if (conditions.length > 0) {
-    var conditions = " WHERE " + conditions.join(" AND ");
-  } else {
-    var conditions = "";
-    var values = null;
-  }
-
-  var sql = "SELECT * FROM " + table + conditions;
-
-  databaseConnection.query (sql, values, function(err, json) {
-    if (err) {
-      queryResult("error", err);
-    } else {
-      if(download == "1") {
-        const csv = downloadResource(json);
-        queryResult("csv", csv);
-      } else {
-        queryResult("json", json);
-      }
-    }
-  });
+  modelHandler(table, conditions, parameters, connection, callback);
 };
 
 module.exports = model;

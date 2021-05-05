@@ -7,7 +7,7 @@ const model = {};
 
 const defaultLimit = 1000;
 
-model.cases = function(parameters, queryResult) {
+model.cases = function(parameters, callback) {
 
   var { minYear, maxYear, memberState, directorateGeneral, caseNumber, caseType,
     exempt, preliminaryInvestigation, formalInvestigation, noObjection, notAid,
@@ -116,19 +116,19 @@ model.cases = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.cases_TS = function(parameters, queryResult) {
+model.cases_TS = function(parameters, callback) {
 
   var { byCaseType, minYear, maxYear, caseType, limit, offset, download, count } = parameters.query;
 
@@ -182,19 +182,19 @@ model.cases_TS = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.cases_CSTS_MS = function(parameters, queryResult) {
+model.cases_CSTS_MS = function(parameters, callback) {
 
   var { byCaseType, memberState, minYear, maxYear, caseType,
     limit, offset, download, count } = parameters.query;
@@ -253,19 +253,19 @@ model.cases_CSTS_MS = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.cases_CSTS_DG = function(parameters, queryResult) {
+model.cases_CSTS_DG = function(parameters, callback) {
 
   var { byCaseType, directorateGeneral, minYear, maxYear, caseType,
     limit, offset, download, count } = parameters.query;
@@ -324,19 +324,19 @@ model.cases_CSTS_DG = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.cases_DDY = function(parameters, queryResult) {
+model.cases_DDY = function(parameters, callback) {
 
   var { byCaseType, minYear, maxYear, memberState, directorateGeneral,
     caseType, network, limit, offset, download, count } = parameters.query;
@@ -409,19 +409,19 @@ model.cases_DDY = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.decisions = function(parameters, queryResult) {
+model.decisions = function(parameters, callback) {
 
   var { minYear, maxYear, memberState, directorateGeneral,
     caseNumber, caseType, decisionType, limit, offset, download, count } = parameters.query;
@@ -487,19 +487,19 @@ model.decisions = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.decisions_TS = function(parameters, queryResult) {
+model.decisions_TS = function(parameters, callback) {
 
   var { byCaseType, minYear, maxYear, caseType, decisionType, limit, offset, download, count } = parameters.query;
 
@@ -557,19 +557,19 @@ model.decisions_TS = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.decisions_CSTS_MS = function(parameters, queryResult) {
+model.decisions_CSTS_MS = function(parameters, callback) {
 
   var { byCaseType, memberState, minYear, maxYear, decisionType, caseType,
     limit, offset, download, count } = parameters.query;
@@ -632,19 +632,19 @@ model.decisions_CSTS_MS = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.decisions_CSTS_DG = function(parameters, queryResult) {
+model.decisions_CSTS_DG = function(parameters, callback) {
 
   var { byCaseType, directorateGeneral, minYear, maxYear, decisionType, caseType,
     limit, offset, download, count } = parameters.query;
@@ -707,19 +707,19 @@ model.decisions_CSTS_DG = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.decisions_DDY = function(parameters, queryResult) {
+model.decisions_DDY = function(parameters, callback) {
 
   var { byCaseType, minYear, maxYear, memberState,
     directorateGeneral, caseType, decisionType, network, limit, offset, download, count } = parameters.query;
@@ -796,19 +796,19 @@ model.decisions_DDY = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.awards = function(parameters, queryResult) {
+model.awards = function(parameters, callback) {
 
   var { minYear, maxYear, caseNumber, memberState, beneficiaryType,
     sector, aidInstrument, limit, offset, download, count } = parameters.query;
@@ -874,19 +874,19 @@ model.awards = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
 };
 
-model.awards_CSTS = function(parameters, queryResult) {
+model.awards_CSTS = function(parameters, callback) {
 
   var { minYear, maxYear, byAidInstrument, byBeneficiaryType, bySector, memberState,
     beneficiaryType, sector, aidInstrument, limit, offset, download, count } = parameters.query;
@@ -964,13 +964,13 @@ model.awards_CSTS = function(parameters, queryResult) {
 
   databaseConnection.query (sql, values, function(err, json) {
     if (err) {
-      queryResult("error", err);
+      callback("error", err);
     } else {
       if(download == "1") {
         const csv = downloadResource(json);
-        queryResult("csv", csv);
+        callback("csv", csv);
       } else {
-        queryResult("json", json);
+        callback("json", json);
       }
     }
   });
