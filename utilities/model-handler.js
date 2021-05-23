@@ -1,6 +1,6 @@
 const downloadResource = require.main.require("./utilities/download.js");
 
-const maxLimit = 5000;
+const maxLimit = 10000;
 
 module.exports = (table, conditions, parameters, connection, callback) => {
 

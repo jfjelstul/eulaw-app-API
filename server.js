@@ -18,35 +18,52 @@ app.use(bodyParser.json());
 
 // rate limit
 app.set("trust proxy", 1);
-const limiter = rateLimit({
+const dataLimiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 12,
+  max: 6 * 2,
 });
-app.use(limiter);
+app.use("/databases/", dataLimiter);
+const valuesLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 60,
+});
+app.use("/values/", valuesLimiter);
 
-// version 1
+// version 1 welcome messages
 v1.get("/", (req, res) => {
   res.json({ message: "Welcome to v1.0 of the eulaw.app API!" })
 });
-v1.get("/EUIP-database", (req, res) => {
-  res.json({ message: "Welcome to the EUIP Database module of the eulaw.app API!" })
+v1.get("/databases/EvoEU", (req, res) => {
+  res.json({ message: "Welcome to the Evolution of European Union Law (EvoEU) Database module of the eulaw.app API!" })
 });
-v1.get("/EUTR-database", (req, res) => {
-  res.json({ message: "Welcome to the EUTR Database module of the eulaw.app API!" })
+v1.get("/databases/ECIO", (req, res) => {
+  res.json({ message: "Welcome to the European Commission Internal Organization (ECIO) Database module of the eulaw.app API!" })
 });
-v1.get("/EUSA-database", (req, res) => {
-  res.json({ message: "Welcome to the EUSA Database module of the eulaw.app API!" })
+v1.get("/databases/EUIP", (req, res) => {
+  res.json({ message: "Welcome to the European Union Infringement Procedure (EUIP) Database module of the eulaw.app API!" })
+});
+v1.get("/databases/EUSA", (req, res) => {
+  res.json({ message: "Welcome to the European Union State Aid (EUSA) Database module of the eulaw.app API!" })
+});
+v1.get("/databases/EUTR", (req, res) => {
+  res.json({ message: "Welcome to the European Union Technical Regulations (EUTR) Database module of the eulaw.app API!" })
+});
+v1.get("/databases/EUMS", (req, res) => {
+  res.json({ message: "Welcome to the European Union Member States (EUMS) Database module of the eulaw.app API!" })
 });
 
-// version 2 (not implemented)
+// version 2 welcome message
 v2.get("/", (req, res) => {
   res.json({ message: "Welcome to v2.0 of the eulaw.app API! This verson has not been implemented yet." })
 });
 
 // end points
-require.main.require("./EUIP-module/routes/EUIP-routes.js")(v1);
-require.main.require("./EUSA-module/routes/EUSA-routes.js")(v1);
-require.main.require("./EUTR-module/routes/EUTR-routes.js")(v1);
+require.main.require("./evoeu-module/evoeu-routes.js")(v1);
+require.main.require("./ecio-module/ecio-routes.js")(v1);
+require.main.require("./euip-module/euip-routes.js")(v1);
+require.main.require("./eusa-module/eusa-routes.js")(v1);
+require.main.require("./eutr-module/eutr-routes.js")(v1);
+require.main.require("./eums-module/eums-routes.js")(v1);
 require.main.require("./authentication/authentication-routes.js")(v1);
 
 // routes to each version
