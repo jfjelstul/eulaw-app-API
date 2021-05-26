@@ -1,0 +1,508 @@
+
+/* script generated automatically by the r2sql R package by Joshua C. Fjelstul, Ph.D. */
+
+DROP TABLE IF EXISTS cases_csts_dp_ct;
+CREATE TABLE cases_csts_dp_ct(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_csts_dp_ct.csv'
+INTO TABLE cases_csts_dp_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_csts_dp;
+CREATE TABLE cases_csts_dp(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_csts_dp.csv'
+INTO TABLE cases_csts_dp
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_csts_ms_ct;
+CREATE TABLE cases_csts_ms_ct(
+  key_id INT,
+  year INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_csts_ms_ct.csv'
+INTO TABLE cases_csts_ms_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_csts_ms;
+CREATE TABLE cases_csts_ms(
+  key_id INT,
+  year INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_csts_ms.csv'
+INTO TABLE cases_csts_ms
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_ddy_ct;
+CREATE TABLE cases_ddy_ct(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_ddy_ct.csv'
+INTO TABLE cases_ddy_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_ddy;
+CREATE TABLE cases_ddy(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_ddy.csv'
+INTO TABLE cases_ddy
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_net_ct;
+CREATE TABLE cases_net_ct(
+  key_id INT,
+  year INT,
+  layer_id INT,
+  layer TEXT,
+  from_node_id INT,
+  from_node TEXT,
+  to_node_id INT,
+  to_node TEXT,
+  edge_weight INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_net_ct.csv'
+INTO TABLE cases_net_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_net;
+CREATE TABLE cases_net(
+  key_id INT,
+  year INT,
+  from_node_id INT,
+  from_node TEXT,
+  to_node_id INT,
+  to_node TEXT,
+  edge_weight INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_net.csv'
+INTO TABLE cases_net
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_ts_ct;
+CREATE TABLE cases_ts_ct(
+  key_id INT,
+  year INT,
+  case_type_id INT,
+  case_type TEXT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_ts_ct.csv'
+INTO TABLE cases_ts_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases_ts;
+CREATE TABLE cases_ts(
+  key_id INT,
+  year INT,
+  count_cases INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases_ts.csv'
+INTO TABLE cases_ts
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS cases;
+CREATE TABLE cases(
+  key_id INT,
+  case_id TEXT,
+  case_number INT,
+  case_year INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  directive INT,
+  directive_number TEXT,
+  celex TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  noncommunication INT,
+  nonconformity INT,
+  complete INT,
+  count_press_releases INT,
+  stage_lfn_258 INT,
+  stage_ro_258 INT,
+  stage_rf_258 INT,
+  stage_lfn_260 INT,
+  stage_ro_260 INT,
+  stage_rf_260 INT,
+  stage_closing INT,
+  stage_withdrawal INT,
+  case_history TEXT,
+  corrected_lfn_258 INT,
+  corrected_ro_258 INT,
+  corrected_rf_258 INT,
+  corrected_lfn_260 INT,
+  corrected_ro_260 INT,
+  corrected_rf_260 INT,
+  count_decisions INT,
+  count_lfn_258 INT,
+  count_ro_258 INT,
+  count_rf_258 INT,
+  count_lfn_260 INT,
+  count_ro_260 INT,
+  count_rf_260 INT,
+  count_missing INT,
+  missing_lfn_258 INT,
+  missing_ro_258 INT,
+  missing_rf_258 INT,
+  missing_lfn_260 INT,
+  missing_ro_260 INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/cases.csv'
+INTO TABLE cases
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS codebook;
+CREATE TABLE codebook(
+  key_id INT,
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/codebook.csv'
+INTO TABLE codebook
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_csts_dp_ct;
+CREATE TABLE decisions_csts_dp_ct(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_csts_dp_ct.csv'
+INTO TABLE decisions_csts_dp_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_csts_dp;
+CREATE TABLE decisions_csts_dp(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_csts_dp.csv'
+INTO TABLE decisions_csts_dp
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_csts_ms_ct;
+CREATE TABLE decisions_csts_ms_ct(
+  key_id INT,
+  year INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_csts_ms_ct.csv'
+INTO TABLE decisions_csts_ms_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_csts_ms;
+CREATE TABLE decisions_csts_ms(
+  key_id INT,
+  year INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_csts_ms.csv'
+INTO TABLE decisions_csts_ms
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_ddy_ct;
+CREATE TABLE decisions_ddy_ct(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_ddy_ct.csv'
+INTO TABLE decisions_ddy_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_ddy;
+CREATE TABLE decisions_ddy(
+  key_id INT,
+  year INT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_ddy.csv'
+INTO TABLE decisions_ddy
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_net_ct;
+CREATE TABLE decisions_net_ct(
+  key_id INT,
+  year INT,
+  d1_layer_id INT,
+  d1_layer TEXT,
+  d2_layer_id INT,
+  d2_layer TEXT,
+  from_node_id INT,
+  from_node TEXT,
+  to_node_id INT,
+  to_node TEXT,
+  edge_weight INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_net_ct.csv'
+INTO TABLE decisions_net_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_net;
+CREATE TABLE decisions_net(
+  key_id INT,
+  year INT,
+  layer_id INT,
+  layer TEXT,
+  from_node_id INT,
+  from_node TEXT,
+  to_node_id INT,
+  to_node TEXT,
+  edge_weight INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_net.csv'
+INTO TABLE decisions_net
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_ts_ct;
+CREATE TABLE decisions_ts_ct(
+  key_id INT,
+  year INT,
+  case_type_id INT,
+  case_type TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_ts_ct.csv'
+INTO TABLE decisions_ts_ct
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions_ts;
+CREATE TABLE decisions_ts(
+  key_id INT,
+  year INT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  count_decisions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions_ts.csv'
+INTO TABLE decisions_ts
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS decisions;
+CREATE TABLE decisions(
+  key_id INT,
+  decision_id TEXT,
+  case_id TEXT,
+  case_number INT,
+  case_year INT,
+  decision_date TEXT,
+  decision_year INT,
+  decision_month INT,
+  decision_day INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  department_id INT,
+  department TEXT,
+  department_code TEXT,
+  case_type_id INT,
+  case_type TEXT,
+  noncommunication INT,
+  nonconformity INT,
+  directive INT,
+  directive_number TEXT,
+  celex TEXT,
+  decision_stage_id INT,
+  decision_stage TEXT,
+  stage_lfn_258 INT,
+  stage_ro_258 INT,
+  stage_rf_258 INT,
+  stage_lfn_260 INT,
+  stage_ro_260 INT,
+  stage_rf_260 INT,
+  stage_closing INT,
+  stage_withdrawal INT,
+  stage_additional INT,
+  press_release INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/euip/decisions.csv'
+INTO TABLE decisions
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+

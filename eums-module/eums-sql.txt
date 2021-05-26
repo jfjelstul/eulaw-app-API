@@ -1,0 +1,154 @@
+
+/* script generated automatically by the r2sql R package by Joshua C. Fjelstul, Ph.D. */
+
+DROP TABLE IF EXISTS codebook;
+CREATE TABLE codebook(
+  key_id INT,
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eums/codebook.csv'
+INTO TABLE codebook
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS member_states_csts;
+CREATE TABLE member_states_csts(
+  key_id INT,
+  year INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  years_as_member INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eums/member_states_csts.csv'
+INTO TABLE member_states_csts
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS member_states_ddy;
+CREATE TABLE member_states_ddy(
+  key_id INT,
+  year INT,
+  from_member_state_id INT,
+  from_member_state TEXT,
+  from_member_state_code TEXT,
+  to_member_state_id INT,
+  to_member_state TEXT,
+  to_member_state_code TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eums/member_states_ddy.csv'
+INTO TABLE member_states_ddy
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS member_states;
+CREATE TABLE member_states(
+  key_id INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  iso_alpha_2_code TEXT,
+  iso_alpha_3_code TEXT,
+  languages TEXT,
+  accession_date TEXT,
+  accession_year INT,
+  current_member INT,
+  exit_date TEXT,
+  exit_year INT,
+  wave_1 INT,
+  wave_2 INT,
+  wave_3 INT,
+  wave_4 INT,
+  wave_5 INT,
+  wave_6 INT,
+  wave_7 INT,
+  wave_8 INT,
+  eu_15 INT,
+  eu_19 INT,
+  eu_10 INT,
+  eu_11 INT,
+  eu_27_old INT,
+  eu_27_new INT,
+  eu_28 INT,
+  political_system TEXT,
+  federal INT,
+  unitary INT,
+  parliamentary INT,
+  presidential INT,
+  semi_presidential INT,
+  republic INT,
+  constitutional_monarchy INT,
+  emu INT,
+  emu_accession_date TEXT,
+  emu_accession_year INT,
+  currency TEXT,
+  pre_emu_currency TEXT,
+  schengen_area INT,
+  schengen_date_signed TEXT,
+  schengen_year_signed INT,
+  schengen_date_implemented TEXT,
+  schengen_year_implemented INT,
+  emu_obligated INT,
+  schengen_obligated INT,
+  emu_opt_out INT,
+  schengen_opt_out INT,
+  csdp_opt_out INT,
+  cfr_opt_out INT,
+  afsj_opt_out INT,
+  nato INT,
+  oecd INT,
+  benelux_union INT,
+  nordic_council INT,
+  baltic_assembly INT,
+  visegrad_group INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eums/member_states.csv'
+INTO TABLE member_states
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS qmv_weights;
+CREATE TABLE qmv_weights(
+  key_id INT,
+  period INT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT,
+  count_member_states INT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  votes INT,
+  total_votes INT,
+  normalized_weight FLOAT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eums/qmv_weights.csv'
+INTO TABLE qmv_weights
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+

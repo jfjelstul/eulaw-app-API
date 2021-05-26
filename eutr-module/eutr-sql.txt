@@ -1,0 +1,314 @@
+
+/* script generated automatically by the r2sql R package by Joshua C. Fjelstul, Ph.D. */
+
+DROP TABLE IF EXISTS codebook;
+CREATE TABLE codebook(
+  key_id INT,
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/codebook.csv'
+INTO TABLE codebook
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS comments_csts_n;
+CREATE TABLE comments_csts_n(
+  key_id INT,
+  year INT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  count_comments INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/comments_csts_n.csv'
+INTO TABLE comments_csts_n
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS comments_csts_s;
+CREATE TABLE comments_csts_s(
+  key_id INT,
+  year INT,
+  comment_by_id INT,
+  comment_by TEXT,
+  comment_by_code TEXT,
+  count_comments INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/comments_csts_s.csv'
+INTO TABLE comments_csts_s
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS comments_ddy;
+CREATE TABLE comments_ddy(
+  key_id INT,
+  year INT,
+  comment_by_id INT,
+  comment_by TEXT,
+  comment_by_code TEXT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  count_comments INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/comments_ddy.csv'
+INTO TABLE comments_ddy
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS comments_net;
+CREATE TABLE comments_net(
+  key_id INT,
+  year INT,
+  from_node_id INT,
+  from_node TEXT,
+  to_node_id INT,
+  to_node TEXT,
+  edge_weight INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/comments_net.csv'
+INTO TABLE comments_net
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS comments_ts;
+CREATE TABLE comments_ts(
+  key_id INT,
+  year INT,
+  count_comments INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/comments_ts.csv'
+INTO TABLE comments_ts
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS comments;
+CREATE TABLE comments(
+  key_id INT,
+  notification_id TEXT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  start_date TEXT,
+  start_year INT,
+  end_date TEXT,
+  end_year INT,
+  comment_id TEXT,
+  comment_by_id INT,
+  comment_by TEXT,
+  comment_by_code TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/comments.csv'
+INTO TABLE comments
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS entity_codes;
+CREATE TABLE entity_codes(
+  key_id INT,
+  entity_id INT,
+  entity TEXT,
+  entity_code TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/entity_codes.csv'
+INTO TABLE entity_codes
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS notifications_csts;
+CREATE TABLE notifications_csts(
+  key_id INT,
+  year INT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  count_notifications INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/notifications_csts.csv'
+INTO TABLE notifications_csts
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS notifications_ts;
+CREATE TABLE notifications_ts(
+  key_id INT,
+  year INT,
+  count_notifications INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/notifications_ts.csv'
+INTO TABLE notifications_ts
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS notifications;
+CREATE TABLE notifications(
+  key_id INT,
+  notification_id TEXT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  start_date TEXT,
+  start_year INT,
+  end_date TEXT,
+  end_year INT,
+  postponement INT,
+  comments TEXT,
+  count_comments INT,
+  commission_comment INT,
+  opinions TEXT,
+  count_opinions INT,
+  commission_opinion INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/notifications.csv'
+INTO TABLE notifications
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS opinions_csts_n;
+CREATE TABLE opinions_csts_n(
+  key_id INT,
+  year INT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  count_opinions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/opinions_csts_n.csv'
+INTO TABLE opinions_csts_n
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS opinions_csts_s;
+CREATE TABLE opinions_csts_s(
+  key_id INT,
+  year INT,
+  opinion_by_id INT,
+  opinion_by TEXT,
+  opinion_by_code TEXT,
+  count_opinions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/opinions_csts_s.csv'
+INTO TABLE opinions_csts_s
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS opinions_ddy;
+CREATE TABLE opinions_ddy(
+  key_id INT,
+  year INT,
+  opinion_by_id INT,
+  opinion_by TEXT,
+  opinion_by_code TEXT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  count_opinions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/opinions_ddy.csv'
+INTO TABLE opinions_ddy
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS opinions_net;
+CREATE TABLE opinions_net(
+  key_id INT,
+  year INT,
+  from_node_id INT,
+  from_node TEXT,
+  to_node_id INT,
+  to_node TEXT,
+  edge_weight INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/opinions_net.csv'
+INTO TABLE opinions_net
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS opinions_ts;
+CREATE TABLE opinions_ts(
+  key_id INT,
+  year INT,
+  count_opinions INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/opinions_ts.csv'
+INTO TABLE opinions_ts
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS opinions;
+CREATE TABLE opinions(
+  key_id INT,
+  notification_id TEXT,
+  notification_by_id INT,
+  notification_by TEXT,
+  notification_by_code TEXT,
+  start_date TEXT,
+  start_year INT,
+  end_date TEXT,
+  end_year INT,
+  opinion_id TEXT,
+  opinion_by_id INT,
+  opinion_by TEXT,
+  opinion_by_code TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/opinions.csv'
+INTO TABLE opinions
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+

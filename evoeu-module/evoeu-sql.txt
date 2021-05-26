@@ -1,0 +1,61 @@
+
+/* script generated automatically by the r2sql R package by Joshua C. Fjelstul, Ph.D. */
+
+DROP TABLE IF EXISTS codebook;
+CREATE TABLE codebook(
+  key_id INT,
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/evoeu/codebook.csv'
+INTO TABLE codebook
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS edges;
+CREATE TABLE edges(
+  key_id INT,
+  outgoing_celex TEXT,
+  outgoing_node_type_id INT,
+  outgoing_node_type TEXT,
+  edge_type_id INT,
+  edge_type TEXT,
+  incoming_celex TEXT,
+  incoming_node_type_id INT,
+  incoming_node_type TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/evoeu/edges.csv'
+INTO TABLE edges
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS nodes;
+CREATE TABLE nodes(
+  key_id INT,
+  celex TEXT,
+  node_type_id INT,
+  node_type TEXT,
+  author TEXT,
+  date TEXT,
+  year INT,
+  month INT,
+  day INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/evoeu/nodes.csv'
+INTO TABLE nodes
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+

@@ -1,0 +1,410 @@
+
+/* script generated automatically by the r2sql R package by Joshua C. Fjelstul, Ph.D. */
+
+DROP TABLE IF EXISTS classification_schemes;
+CREATE TABLE classification_schemes(
+  key_id INT,
+  scheme_id INT,
+  scheme TEXT,
+  code_id INT,
+  major_code TEXT,
+  major_code_topic TEXT,
+  minor_code TEXT,
+  minor_code_topic TEXT,
+  policy_area_id INT,
+  policy_area TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/classification_schemes.csv'
+INTO TABLE classification_schemes
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS codebook;
+CREATE TABLE codebook(
+  key_id INT,
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/codebook.csv'
+INTO TABLE codebook
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS commissioners_by_commission;
+CREATE TABLE commissioners_by_commission(
+  key_id INT,
+  commission_id INT,
+  commission TEXT,
+  commissioner_id INT,
+  full_name TEXT,
+  full_name_latin TEXT,
+  last_name TEXT,
+  last_name_latin TEXT,
+  first_name TEXT,
+  first_name_latin TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  national_party_code TEXT,
+  national_party_name TEXT,
+  national_party_name_english TEXT,
+  political_group_code TEXT,
+  political_group_name TEXT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT,
+  full_term INT,
+  end_early INT,
+  replaced INT,
+  not_replaced INT,
+  start_late INT,
+  replacement INT,
+  enlargement INT,
+  portfolio_change INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/commissioners_by_commission.csv'
+INTO TABLE commissioners_by_commission
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS commissioners;
+CREATE TABLE commissioners(
+  key_id INT,
+  commissioner_id INT,
+  full_name TEXT,
+  full_name_latin TEXT,
+  last_name TEXT,
+  last_name_latin TEXT,
+  first_name TEXT,
+  first_name_latin TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  national_party_code TEXT,
+  national_party_name TEXT,
+  national_party_name_english TEXT,
+  political_group_code TEXT,
+  political_group_name TEXT,
+  commissions TEXT,
+  count_commissions INT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/commissioners.csv'
+INTO TABLE commissioners
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS commissions;
+CREATE TABLE commissions(
+  key_id INT,
+  commission_id INT,
+  commission TEXT,
+  full_name TEXT,
+  full_name_latin TEXT,
+  last_name TEXT,
+  last_name_latin TEXT,
+  first_name TEXT,
+  first_name_latin TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  national_party_code TEXT,
+  national_party_name TEXT,
+  national_party_name_english TEXT,
+  political_group_code TEXT,
+  political_group_name TEXT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/commissions.csv'
+INTO TABLE commissions
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS department_allocations;
+CREATE TABLE department_allocations(
+  key_id INT,
+  commission_id INT,
+  commission TEXT,
+  commissioner_id INT,
+  full_name TEXT,
+  full_name_latin TEXT,
+  last_name TEXT,
+  last_name_latin TEXT,
+  first_name TEXT,
+  first_name_latin TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  national_party_code TEXT,
+  national_party_name TEXT,
+  national_party_name_english TEXT,
+  political_group_code TEXT,
+  political_group_name TEXT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT,
+  department_id INT,
+  department_name TEXT,
+  department_code TEXT,
+  policy_area TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/department_allocations.csv'
+INTO TABLE department_allocations
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS department_histories;
+CREATE TABLE department_histories(
+  key_id INT,
+  current_department_id INT,
+  current_department_name TEXT,
+  current_department_code TEXT,
+  current_department_type_id INT,
+  current_department_type TEXT,
+  department_id INT,
+  department_name TEXT,
+  department_code TEXT,
+  department_type_id INT,
+  department_type TEXT,
+  commissions TEXT,
+  count_commissions INT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/department_histories.csv'
+INTO TABLE department_histories
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS departments_by_commission;
+CREATE TABLE departments_by_commission(
+  key_id INT,
+  commission_id INT,
+  commission TEXT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT,
+  department_type_id INT,
+  department_type TEXT,
+  department_id INT,
+  department_name TEXT,
+  department_code TEXT,
+  policy_area TEXT,
+  current_department_name TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/departments_by_commission.csv'
+INTO TABLE departments_by_commission
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS departments;
+CREATE TABLE departments(
+  key_id INT,
+  department_id INT,
+  department_name TEXT,
+  first_commission_id INT,
+  first_commission TEXT,
+  commissions TEXT,
+  count_commissions INT,
+  current_department INT,
+  department_type_id INT,
+  department_type TEXT,
+  department_code TEXT,
+  policy_area TEXT,
+  current_department_name TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/departments.csv'
+INTO TABLE departments
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS policy_area_allocations;
+CREATE TABLE policy_area_allocations(
+  key_id INT,
+  commission_id INT,
+  commission TEXT,
+  commissioner_id INT,
+  full_name TEXT,
+  full_name_latin TEXT,
+  last_name TEXT,
+  last_name_latin TEXT,
+  first_name TEXT,
+  first_name_latin TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  national_party_code TEXT,
+  national_party_name TEXT,
+  national_party_name_english TEXT,
+  political_group_code TEXT,
+  political_group_name TEXT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT,
+  policy_area_id INT,
+  policy_area TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/policy_area_allocations.csv'
+INTO TABLE policy_area_allocations
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS policy_area_histories;
+CREATE TABLE policy_area_histories(
+  key_id INT,
+  policy_area_id INT,
+  policy_area TEXT,
+  department_id INT,
+  department_name TEXT,
+  department_code TEXT,
+  department_type_id INT,
+  department_type TEXT,
+  commissions TEXT,
+  count_commissions INT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/policy_area_histories.csv'
+INTO TABLE policy_area_histories
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS policy_areas;
+CREATE TABLE policy_areas(
+  key_id INT,
+  policy_area_id INT,
+  policy_area TEXT,
+  case_law_old TEXT,
+  case_law_new TEXT,
+  legislation TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/policy_areas.csv'
+INTO TABLE policy_areas
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS portfolio_allocations;
+CREATE TABLE portfolio_allocations(
+  key_id INT,
+  commission_id INT,
+  commission TEXT,
+  commissioner_id INT,
+  full_name TEXT,
+  full_name_latin TEXT,
+  last_name TEXT,
+  last_name_latin TEXT,
+  first_name TEXT,
+  first_name_latin TEXT,
+  member_state_id INT,
+  member_state TEXT,
+  member_state_code TEXT,
+  national_party_code TEXT,
+  national_party_name TEXT,
+  national_party_name_english TEXT,
+  political_group_code TEXT,
+  political_group_name TEXT,
+  start_date TEXT,
+  start_year INT,
+  start_month INT,
+  start_day INT,
+  end_date TEXT,
+  end_year INT,
+  end_month INT,
+  end_day INT,
+  portfolio TEXT,
+  departments TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/portfolio_allocations.csv'
+INTO TABLE portfolio_allocations
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
