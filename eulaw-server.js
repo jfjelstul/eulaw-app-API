@@ -20,37 +20,47 @@ app.use(bodyParser.json());
 app.set("trust proxy", 1);
 const dataLimiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 6 * 2,
+  max: 12 * 2,
 });
 app.use("/databases/", dataLimiter);
 const valuesLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 60,
 });
-app.use("/values/", valuesLimiter);
+app.use("/ID-numbers/", valuesLimiter);
 
 // version 1 welcome messages
 v1.get("/", (req, res) => {
   res.json({ message: "Welcome to v1.0 of the eulaw.app API!" })
 });
-v1.get("/databases/EvoEU", (req, res) => {
-  res.json({ message: "Welcome to the Evolution of European Union Law (EvoEU) Database module of the eulaw.app API!" })
+v1.get("/databases", (req, res) => {
+  res.json([
+    { database_id: 1, database: "evoeu" },
+    { database_id: 2, database: "ecio" },
+    { database_id: 3, database: "euip" },
+    { database_id: 4, database: "eusa" },
+    { database_id: 5, database: "eutr" },
+    { database_id: 6, database: "eums" },
+  ]);
 });
-v1.get("/databases/ECIO", (req, res) => {
-  res.json({ message: "Welcome to the European Commission Internal Organization (ECIO) Database module of the eulaw.app API!" })
-});
-v1.get("/databases/EUIP", (req, res) => {
-  res.json({ message: "Welcome to the European Union Infringement Procedure (EUIP) Database module of the eulaw.app API!" })
-});
-v1.get("/databases/EUSA", (req, res) => {
-  res.json({ message: "Welcome to the European Union State Aid (EUSA) Database module of the eulaw.app API!" })
-});
-v1.get("/databases/EUTR", (req, res) => {
-  res.json({ message: "Welcome to the European Union Technical Regulations (EUTR) Database module of the eulaw.app API!" })
-});
-v1.get("/databases/EUMS", (req, res) => {
-  res.json({ message: "Welcome to the European Union Member States (EUMS) Database module of the eulaw.app API!" })
-});
+// v1.get("/databases/EvoEU", (req, res) => {
+//   res.json({ message: "Welcome to the Evolution of European Union Law (EvoEU) Database module of the eulaw.app API!" });
+// });
+// v1.get("/databases/ECIO", (req, res) => {
+//   res.json({ message: "Welcome to the European Commission Internal Organization (ECIO) Database module of the eulaw.app API!" });
+// });
+// v1.get("/databases/EUIP", (req, res) => {
+//   res.json({ message: "Welcome to the European Union Infringement Procedure (EUIP) Database module of the eulaw.app API!" });
+// });
+// v1.get("/databases/EUSA", (req, res) => {
+//   res.json({ message: "Welcome to the European Union State Aid (EUSA) Database module of the eulaw.app API!" });
+// });
+// v1.get("/databases/EUTR", (req, res) => {
+//   res.json({ message: "Welcome to the European Union Technical Regulations (EUTR) Database module of the eulaw.app API!" });
+// });
+// v1.get("/databases/EUMS", (req, res) => {
+//   res.json({ message: "Welcome to the European Union Member States (EUMS) Database module of the eulaw.app API!" });
+// });
 
 // version 2 welcome message
 v2.get("/", (req, res) => {
