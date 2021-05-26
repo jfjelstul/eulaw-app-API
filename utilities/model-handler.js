@@ -5,7 +5,7 @@ const maxLimit = 10000;
 module.exports = (table, conditions, parameters, connection, callback) => {
 
   // extract parameters that are not specific to the route
-  var { limit, offset, download, count } = parameters.query;
+  var { limit, offset, download, count, variables } = parameters.query;
 
   // if the limit is not specified, set it equal to the max limit
   if (typeof limit === "undefined") {
@@ -30,7 +30,6 @@ module.exports = (table, conditions, parameters, connection, callback) => {
   // if no conditions are specified, set to default values
   else {
     var conditions = "";
-    // var values = null;
   }
 
   // create the SQL query
@@ -39,6 +38,10 @@ module.exports = (table, conditions, parameters, connection, callback) => {
   // if count parameter is specified, override the SQL query
   if (count === "1") {
     sql = "SELECT COUNT(*) as observations FROM " + table + conditions;
+  }
+
+  if (variables === "1") {
+    sql = "SELECT variable_id, variable FROM codebook WHERE dataset = '" + table + "';";
   }
 
   // query the database

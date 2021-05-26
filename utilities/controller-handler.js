@@ -10,7 +10,7 @@ module.exports = (req, res, modelMethod) => {
       res.status(200).send(data);
     } else if (type == "error") {
       res.status(500).send({
-        message: "internal server error"
+        message: "internal server error:" + data
       });
     }
   });
