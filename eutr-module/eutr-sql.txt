@@ -1,24 +1,6 @@
 
 /* script generated automatically by the r2sql R package by Joshua C. Fjelstul, Ph.D. */
 
-DROP TABLE IF EXISTS codebook;
-CREATE TABLE codebook(
-  key_id INT,
-  dataset_id INT,
-  dataset TEXT,
-  variable_id INT,
-  variable TEXT,
-  type TEXT,
-  description TEXT
-);
-
-LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/codebook.csv'
-INTO TABLE codebook
-COLUMNS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES;
-
 DROP TABLE IF EXISTS comments_csts_n;
 CREATE TABLE comments_csts_n(
   key_id INT,
@@ -129,16 +111,17 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
-DROP TABLE IF EXISTS entity_codes;
-CREATE TABLE entity_codes(
-  key_id INT,
-  entity_id INT,
-  entity TEXT,
-  entity_code TEXT
+DROP TABLE IF EXISTS datasets;
+CREATE TABLE datasets(
+  dataset_id INT,
+  dataset TEXT,
+  label TEXT,
+  `group` TEXT,
+  description TEXT
 );
 
-LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/entity_codes.csv'
-INTO TABLE entity_codes
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/datasets.csv'
+INTO TABLE datasets
 COLUMNS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -307,6 +290,23 @@ CREATE TABLE opinions(
 
 LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/opinions.csv'
 INTO TABLE opinions
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS variables;
+CREATE TABLE variables(
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eutr/variables.csv'
+INTO TABLE variables
 COLUMNS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'

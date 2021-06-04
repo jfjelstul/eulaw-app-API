@@ -22,7 +22,8 @@ module.exports = app => {
   app.get("/databases/EUTR/opinions/DDY", controller.opinions_ddy);
   app.get("/databases/EUTR/opinions/network", controller.opinions_net);
 
-  app.get("/databases/EUTR/codebook", controller.codebook);
+  app.get("/databases/EUTR/variables", controller.variables);
+  app.get("/databases/EUTR/datasets", controller.datasets);
 
   app.get("/ID-numbers/EUTR/notification-by", controller.notification_by_id);
   app.get("/ID-numbers/EUTR/comment-by", controller.comment_by_id);

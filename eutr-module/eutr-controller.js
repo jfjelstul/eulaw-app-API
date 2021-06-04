@@ -7,6 +7,10 @@ controller.datasets = function (req, res) {
   controllerHandler (req, res, model.datasets);
 };
 
+controller.variables = function (req, res) {
+  controllerHandler (req, res, model.variables);
+};
+
 controller.notifications = function (req, res) {
   controllerHandler (req, res, model.notifications);
 };
@@ -65,10 +69,6 @@ controller.opinions_ddy = function (req, res) {
 
 controller.opinions_net = function (req, res) {
   controllerHandler (req, res, model.opinions_net);
-};
-
-controller.codebook = function (req, res) {
-  controllerHandler (req, res, model.codebook);
 };
 
 controller.notification_by_id = function (req, res) {
