@@ -360,19 +360,17 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
-DROP TABLE IF EXISTS codebook;
-CREATE TABLE codebook(
-  key_id INT,
+DROP TABLE IF EXISTS datasets;
+CREATE TABLE datasets(
   dataset_id INT,
   dataset TEXT,
-  variable_id INT,
-  variable TEXT,
-  type TEXT,
+  label TEXT,
+  `group` TEXT,
   description TEXT
 );
 
-LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eusa/codebook.csv'
-INTO TABLE codebook
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eusa/datasets.csv'
+INTO TABLE datasets
 COLUMNS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -621,18 +619,18 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
-DROP TABLE IF EXISTS nace_codes;
-CREATE TABLE nace_codes(
-  key_id INT,
-  nace_sector_id INT,
-  nace_sector_code TEXT,
-  nace_sector TEXT,
-  nace_code TEXT,
-  nace_description TEXT
+DROP TABLE IF EXISTS variables;
+CREATE TABLE variables(
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
 );
 
-LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eusa/nace_codes.csv'
-INTO TABLE nace_codes
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eusa/variables.csv'
+INTO TABLE variables
 COLUMNS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'

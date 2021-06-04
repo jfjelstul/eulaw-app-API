@@ -7,6 +7,10 @@ controller.datasets = function (req, res) {
   controllerHandler (req, res, model.datasets);
 };
 
+controller.variables = function (req, res) {
+  controllerHandler (req, res, model.variables);
+};
+
 controller.cases = function (req, res) {
   controllerHandler (req, res, model.cases);
 };
@@ -113,10 +117,6 @@ controller.awards_csts_ai = function (req, res) {
 
 controller.awards_csts_ns = function (req, res) {
   controllerHandler (req, res, model.awards_csts_ns);
-};
-
-controller.codebook = function (req, res) {
-  controllerHandler (req, res, model.codebook);
 };
 
 controller.member_state_id = function (req, res) {

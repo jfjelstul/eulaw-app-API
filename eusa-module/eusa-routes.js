@@ -34,7 +34,8 @@ module.exports = app => {
   app.get("/databases/EUSA/awards/CSTS/aid-instrument", controller.awards_csts_ai);
   app.get("/databases/EUSA/awards/CSTS/NACE-sector", controller.awards_csts_ns);
 
-  app.get("/databases/EUSA/codebook", controller.codebook);
+  app.get("/databases/EUSA/variables", controller.variables);
+  app.get("/databases/EUSA/datasets", controller.datasets);
 
   app.get("/ID-numbers/EUSA/member-state", controller.member_state_id);
   app.get("/ID-numbers/EUSA/department", controller.department_id);
