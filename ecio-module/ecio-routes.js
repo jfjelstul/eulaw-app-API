@@ -16,7 +16,8 @@ module.exports = app => {
   app.get("/databases/ECIO/histories/department", controller.department_histories);
   app.get("/databases/ECIO/histories/policy-area", controller.policy_area_histories);
 
-  app.get("/databases/ECIO/codebook", controller.codebook);
+  app.get("/databases/ECIO/variables", controller.variables);
+  app.get("/databases/ECIO/datasets", controller.datasets);
 
   app.get("/ID-numbers/ECIO/commission", controller.commission_id);
   app.get("/ID-numbers/ECIO/commissioner", controller.commissioner_id);

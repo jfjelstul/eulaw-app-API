@@ -1,45 +1,6 @@
 
 /* script generated automatically by the r2sql R package by Joshua C. Fjelstul, Ph.D. */
 
-DROP TABLE IF EXISTS classification_schemes;
-CREATE TABLE classification_schemes(
-  key_id INT,
-  scheme_id INT,
-  scheme TEXT,
-  code_id INT,
-  major_code TEXT,
-  major_code_topic TEXT,
-  minor_code TEXT,
-  minor_code_topic TEXT,
-  policy_area_id INT,
-  policy_area TEXT
-);
-
-LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/classification_schemes.csv'
-INTO TABLE classification_schemes
-COLUMNS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES;
-
-DROP TABLE IF EXISTS codebook;
-CREATE TABLE codebook(
-  key_id INT,
-  dataset_id INT,
-  dataset TEXT,
-  variable_id INT,
-  variable TEXT,
-  type TEXT,
-  description TEXT
-);
-
-LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/codebook.csv'
-INTO TABLE codebook
-COLUMNS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES;
-
 DROP TABLE IF EXISTS commissioners_by_commission;
 CREATE TABLE commissioners_by_commission(
   key_id INT,
@@ -158,6 +119,21 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
+DROP TABLE IF EXISTS datasets;
+CREATE TABLE datasets(
+  dataset_id INT,
+  dataset TEXT,
+  label TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/datasets.csv'
+INTO TABLE datasets
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
 DROP TABLE IF EXISTS department_allocations;
 CREATE TABLE department_allocations(
   key_id INT,
@@ -187,7 +163,7 @@ CREATE TABLE department_allocations(
   end_month INT,
   end_day INT,
   department_id INT,
-  department_name TEXT,
+  department TEXT,
   department_code TEXT,
   policy_area TEXT
 );
@@ -203,12 +179,12 @@ DROP TABLE IF EXISTS department_histories;
 CREATE TABLE department_histories(
   key_id INT,
   current_department_id INT,
-  current_department_name TEXT,
+  current_department TEXT,
   current_department_code TEXT,
   current_department_type_id INT,
   current_department_type TEXT,
   department_id INT,
-  department_name TEXT,
+  department TEXT,
   department_code TEXT,
   department_type_id INT,
   department_type TEXT,
@@ -247,10 +223,10 @@ CREATE TABLE departments_by_commission(
   department_type_id INT,
   department_type TEXT,
   department_id INT,
-  department_name TEXT,
+  department TEXT,
   department_code TEXT,
   policy_area TEXT,
-  current_department_name TEXT
+  current_department TEXT
 );
 
 LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/departments_by_commission.csv'
@@ -264,17 +240,15 @@ DROP TABLE IF EXISTS departments;
 CREATE TABLE departments(
   key_id INT,
   department_id INT,
-  department_name TEXT,
-  first_commission_id INT,
-  first_commission TEXT,
+  department TEXT,
   commissions TEXT,
   count_commissions INT,
-  current_department INT,
+  is_current_department INT,
   department_type_id INT,
   department_type TEXT,
   department_code TEXT,
   policy_area TEXT,
-  current_department_name TEXT
+  current_department TEXT
 );
 
 LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/departments.csv'
@@ -329,7 +303,7 @@ CREATE TABLE policy_area_histories(
   policy_area_id INT,
   policy_area TEXT,
   department_id INT,
-  department_name TEXT,
+  department TEXT,
   department_code TEXT,
   department_type_id INT,
   department_type TEXT,
@@ -403,6 +377,23 @@ CREATE TABLE portfolio_allocations(
 
 LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/portfolio_allocations.csv'
 INTO TABLE portfolio_allocations
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+DROP TABLE IF EXISTS variables;
+CREATE TABLE variables(
+  dataset_id INT,
+  dataset TEXT,
+  variable_id INT,
+  variable TEXT,
+  type TEXT,
+  description TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/ecio/variables.csv'
+INTO TABLE variables
 COLUMNS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'

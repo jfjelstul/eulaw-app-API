@@ -7,6 +7,10 @@ controller.datasets = function (req, res) {
   controllerHandler (req, res, model.datasets);
 };
 
+controller.variables = function (req, res) {
+  controllerHandler (req, res, model.variables);
+};
+
 controller.commissions = function (req, res) {
   controllerHandler (req, res, model.commissions);
 };
@@ -49,10 +53,6 @@ controller.department_histories = function (req, res) {
 
 controller.policy_area_histories = function (req, res) {
   controllerHandler (req, res, model.policy_area_histories);
-};
-
-controller.codebook = function (req, res) {
-  controllerHandler (req, res, model.codebook);
 };
 
 controller.commission_id = function (req, res) {
