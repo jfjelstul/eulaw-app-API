@@ -7,6 +7,10 @@ controller.datasets = function (req, res) {
   controllerHandler (req, res, model.datasets);
 };
 
+controller.variables = function (req, res) {
+  controllerHandler (req, res, model.variables);
+};
+
 controller.cases = function (req, res) {
   controllerHandler (req, res, model.cases);
 };
@@ -93,10 +97,6 @@ controller.decisions_net = function (req, res) {
 
 controller.decisions_net_ct = function (req, res) {
   controllerHandler (req, res, model.decisions_net_ct);
-};
-
-controller.codebook = function (req, res) {
-  controllerHandler (req, res, model.codebook);
 };
 
 controller.member_state_id = function (req, res) {

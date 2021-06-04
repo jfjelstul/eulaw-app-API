@@ -28,7 +28,8 @@ module.exports = app => {
   app.get("/databases/EUIP/decisions/network", controller.decisions_net);
   app.get("/databases/EUIP/decisions/network/case-type", controller.decisions_net_ct);
 
-  app.get("/databases/EUIP/codebook", controller.codebook);
+  app.get("/databases/EUIP/variables", controller.variables);
+  app.get("/databases/EUIP/datasets", controller.datasets);
 
   app.get("/ID-numbers/EUIP/member-state", controller.member_state_id);
   app.get("/ID-numbers/EUIP/department", controller.department_id);
