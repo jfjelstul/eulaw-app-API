@@ -5,15 +5,17 @@ const { equalTo, greaterThan, lessThan } = require.main.require("./utilities/con
 
 const model = {};
 
-model.datasets = (tables, callback) => {
-  sql = "SELECT DISTINCT dataset_id, dataset FROM codebook";
-  connection.query(sql, function(error, results) {
-    if (error) {
-      callback("error", error);
-    } else {
-      callback("json", results);
-    }
-  });
+model.datasets = function(parameters, callback) {
+  var { } = parameters.query;
+  var conditions = [];
+  modelHandler("datasets", conditions, parameters, connection, callback);
+};
+
+model.variables = function(parameters, callback) {
+  var { dataset } = parameters.query;
+  var conditions = [];
+  conditions = equalTo(conditions, "dataset", dataset);
+  modelHandler("variables", conditions, parameters, connection, callback);
 };
 
 model.nodes = (parameters, callback) => {
@@ -32,13 +34,6 @@ model.edges = (parameters, callback) => {
   conditions = equalTo(conditions, "outgoing_node_type_id", outgoing_node_type_id);
   conditions = equalTo(conditions, "incoming_node_type_id", incoming_node_type_id);
   modelHandler("edges", conditions, parameters, connection, callback);
-};
-
-model.codebook = (parameters, callback) => {
-  var { dataset } = parameters.query;
-  var conditions = [];
-  conditions = equalTo(conditions, "dataset", dataset);
-  modelHandler("codebook", conditions, parameters, connection, callback);
 };
 
 model.node_type_id = (parameters, callback) => {

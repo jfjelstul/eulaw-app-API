@@ -7,7 +7,8 @@ module.exports = app => {
   app.get("/databases/EvoEU/nodes", controller.nodes);
   app.get("/databases/EvoEU/edges", controller.edges);
 
-  app.get("/databases/EvoEU/codebook", controller.codebook);
+  app.get("/databases/EvoEU/variables", controller.variables);
+  app.get("/databases/EvoEU/datasets", controller.datasets);
 
   app.get("/ID-numbers/EvoEU/node-type", controller.node_type_id);
   app.get("/ID-numbers/EvoEU/incoming-node-type", controller.incoming_node_type_id);

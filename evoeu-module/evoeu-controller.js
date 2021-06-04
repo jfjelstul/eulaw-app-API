@@ -7,16 +7,16 @@ controller.datasets = function (req, res) {
   controllerHandler (req, res, model.datasets);
 };
 
+controller.variables = function (req, res) {
+  controllerHandler (req, res, model.variables);
+};
+
 controller.nodes = function (req, res) {
   controllerHandler (req, res, model.nodes);
 };
 
 controller.edges = function (req, res) {
   controllerHandler (req, res, model.edges);
-};
-
-controller.codebook = function (req, res) {
-  controllerHandler (req, res, model.codebook);
 };
 
 controller.node_type_id = function (req, res) {
