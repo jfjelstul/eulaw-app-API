@@ -5,15 +5,17 @@ const { equalTo, greaterThan, lessThan } = require.main.require("./utilities/con
 
 const model = {};
 
-model.datasets = (tables, callback) => {
-  sql = "SELECT DISTINCT dataset_id, dataset FROM codebook";
-  connection.query(sql, function(error, results) {
-    if (error) {
-      callback("error", error);
-    } else {
-      callback("json", results);
-    }
-  });
+model.datasets = function(parameters, callback) {
+  var { } = parameters.query;
+  var conditions = [];
+  modelHandler("datasets", conditions, parameters, connection, callback);
+};
+
+model.variables = function(parameters, callback) {
+  var { dataset } = parameters.query;
+  var conditions = [];
+  conditions = equalTo(conditions, "dataset", dataset);
+  modelHandler("variables", conditions, parameters, connection, callback);
 };
 
 model.member_states = (parameters, callback) => {
@@ -40,13 +42,6 @@ model.qmv_weights = (parameters, callback) => {
   var conditions = [];
   conditions = equalTo(conditions, "member_state_id", member_state_id);
   modelHandler("qmv_weights", conditions, parameters, connection, callback);
-};
-
-model.codebook = function(parameters, callback) {
-  var { dataset } = parameters.query;
-  var conditions = [];
-  conditions = equalTo(conditions, "dataset", dataset);
-  modelHandler("codebook", conditions, parameters, connection, callback);
 };
 
 model.member_state_id = (parameters, callback) => {

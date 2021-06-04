@@ -9,7 +9,8 @@ module.exports = app => {
   app.get("/databases/EUMS/member-states/DDY", controller.member_states_ddy);
   app.get("/databases/EUMS/QMV-weights", controller.qmv_weights);
 
-  app.get("/databases/EUMS/codebook", controller.codebook);
+  app.get("/databases/EUMS/variables", controller.variables);
+  app.get("/databases/EUMS/datasets", controller.datasets);
 
   app.get("/ID-numbers/EUMS/member-state", controller.member_state_id)
 };
