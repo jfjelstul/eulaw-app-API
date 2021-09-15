@@ -1,0 +1,19 @@
+
+DROP TABLE IF EXISTS eulaw_databases;
+CREATE TABLE eulaw_databases(
+  `id` INT,
+  `code` TEXT,
+  `abbreviation` TEXT,
+  `name` TEXT,
+  `name_with_abbreviation` TEXT,
+  `short_description` TEXT,
+  `long_description` TEXT
+);
+
+LOAD DATA LOCAL INFILE '/home/fjelstul/databases/eulaw/eulaw_databases.csv'
+INTO TABLE eulaw_databases
+COLUMNS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+ 
